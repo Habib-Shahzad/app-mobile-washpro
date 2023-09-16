@@ -1,6 +1,6 @@
 {
-    "name": "wash_pro",
-    "short_name": "wash_pro",
+    "name": "washpro",
+    "short_name": "washpro",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

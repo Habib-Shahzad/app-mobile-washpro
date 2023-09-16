@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "wash_pro" "\0"
+            VALUE "FileDescription", "washpro" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "wash_pro" "\0"
+            VALUE "InternalName", "washpro" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "wash_pro.exe" "\0"
-            VALUE "ProductName", "wash_pro" "\0"
+            VALUE "OriginalFilename", "washpro.exe" "\0"
+            VALUE "ProductName", "washpro" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
