@@ -34,7 +34,7 @@ class CustomElevatedButton extends StatelessWidget {
           : Text(buttonText,
               style: Theme.of(context)
                   .textTheme
-                  .button
+                  .labelLarge
                   ?.copyWith(color: Colors.white)),
     );
   }

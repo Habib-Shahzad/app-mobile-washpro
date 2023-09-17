@@ -10,7 +10,7 @@ class Styles {
 
   static const ColorScheme _colorScheme = ColorScheme(
     brightness: Brightness.light,
-    primary: Color(0xFF2FCCC0),
+    primary: Color(0xFF359A88),
     primaryContainer: Color(0xFF0061FE),
     secondary: Color(0xFFDFEBFF),
     secondaryContainer: Color(0xFFCFE0FF),
@@ -39,6 +39,7 @@ class Styles {
       fontWeight: FontWeight.w300,
     ),
     titleMedium: GoogleFonts.poppins(),
+    titleSmall: GoogleFonts.poppins(),
     bodyMedium: GoogleFonts.poppins(),
     displaySmall: GoogleFonts.poppins(),
   );
