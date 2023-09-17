@@ -18,7 +18,7 @@ class UnAuthWrapperScreen extends StatelessWidget {
           return AutoRouter.declarative(routes: (_) {
             return [
               if (state is OnLoginScreen)
-                const LoginRoute()
+                LoginRoute()
               else if (state is OnForgotPasswordScreen)
                 const ForgotPasswordRoute()
             ];

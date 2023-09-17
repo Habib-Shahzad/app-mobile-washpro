@@ -1,12 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:washpro/business_logic/blocs/auth/bloc.dart';
 import 'package:washpro/data/repositories/auth/app.dart';
 import 'package:washpro/data/repositories/auth/base.dart';
 import 'package:washpro/data/repositories/user_repository/app.dart';
 import 'package:washpro/routes/routes.dart';
 import 'package:washpro/routes/routes.gr.dart';
+import 'package:washpro/styles.dart';
 
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
@@ -56,6 +58,7 @@ class _MainAppState extends State<MainApp> {
       builder: (context, state) {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
+          theme: Styles.mainTheme,
           routerDelegate: AutoRouterDelegate.declarative(
             _appRouter,
             routes: (_) => [
@@ -69,6 +72,7 @@ class _MainAppState extends State<MainApp> {
           ),
           routeInformationParser:
               _appRouter.defaultRouteParser(includePrefixMatches: true),
+          localizationsDelegates: const [FormBuilderLocalizations.delegate],
         );
       },
     );
