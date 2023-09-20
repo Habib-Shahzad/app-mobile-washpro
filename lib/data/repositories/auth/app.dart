@@ -18,7 +18,7 @@ class AppAuthRepository extends AuthRepository {
   @override
   Future<void> signInWithEmailAndPassword(String email, String password) {
     Future.delayed(const Duration(seconds: 2), () {
-      currentUser = User(userId: "123", firstName: email, lastName: password);
+      currentUser = User(userId: "123", firstName: "John", lastName: password);
       _controller.add(AuthenticationStatus.authenticated);
     });
     return Future.value();

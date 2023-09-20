@@ -23,24 +23,24 @@ class Styles {
     onSecondary: Color(0xFF0061FE),
     onSecondaryContainer: Color(0xFFF0FAFF),
     onError: Color(0xFFD53030),
-    onSurface: Color(0xFFA6A6A6),
+    onSurface: Color(0xFF464747),
     onBackground: Color(0xFF081C43),
     tertiary: Color(0xFFD9FFE1),
     onTertiary: Color(0xFF00CB2D),
   );
 
   static final TextTheme _textTheme = TextTheme(
-    displayLarge: const TextStyle(
-      fontSize: 72,
-      fontWeight: FontWeight.bold,
-    ),
     titleLarge: GoogleFonts.poppins(
       fontSize: 25,
       fontWeight: FontWeight.w300,
     ),
     titleMedium: GoogleFonts.poppins(),
     titleSmall: GoogleFonts.poppins(),
+    bodyLarge: GoogleFonts.poppins(
+      fontSize: 21,
+    ),
     bodyMedium: GoogleFonts.poppins(),
+    bodySmall: GoogleFonts.poppins(),
     displaySmall: GoogleFonts.poppins(),
   );
 }

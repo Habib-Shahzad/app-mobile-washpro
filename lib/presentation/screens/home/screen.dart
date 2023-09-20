@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:washpro/business_logic/blocs/auth/bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:washpro/presentation/widgets/custom_card.dart';
 import 'package:washpro/temp.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -34,11 +35,22 @@ class HomeScreen extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Greeting
-            Text(
-              'Hello ${currentUser?.firstName ?? "Valet"}',
-              style: secondaryTitleMedium,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
+              children: [
+                Text(
+                  'Hello',
+                  style: secondaryTitleSmall,
+                ),
+                const SizedBox(width: 2),
+                Text(
+                  currentUser?.firstName ?? " Valet",
+                  style: secondaryTitleMedium,
+                ),
+              ],
             ),
+
             const SizedBox(height: 4), // Spacing
             Row(
               children: [
@@ -78,66 +90,62 @@ class HomeScreen extends StatelessWidget {
         children: [
           const SizedBox(height: 10),
           Row(
-            mainAxisAlignment:
-                MainAxisAlignment.spaceEvenly, // Adjust the alignment as needed
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Card(
-                elevation: 8,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: SizedBox(
-                  width: 150,
-                  height: 150,
-                  child: Center(
-                    child: Stack(
-                      children: <Widget>[
-                        Icon(
-                          MdiIcons.account,
-                          color: const Color(0xFF464747),
-                          size: 50,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30),
-                          child: Icon(
-                            Symbols.laundry,
-                            color: Theme.of(context).colorScheme.primary,
-                            size: 50,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+              CustomIconCard(
+                icons: [MdiIcons.account, Symbols.laundry],
+                iconSize: 65,
+                texts: const ["Pickup", "from", "Customer"],
+                elevation: 10,
+                iconPadding: 37,
               ),
-              Card(
-                elevation: 8,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: SizedBox(
-                  width: 150,
-                  height: 150,
-                  child: Center(
-                    child: Stack(
-                      children: <Widget>[
-                        const Icon(
-                          Icons.local_laundry_service,
-                          color: Color(0xFF464747),
-                          size: 50,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 37),
-                          child: Icon(
-                            Symbols.laundry,
-                            color: Theme.of(context).colorScheme.primary,
-                            size: 50,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+              const CustomIconCard(
+                icons: [Icons.local_laundry_service, Symbols.laundry],
+                iconSize: 65,
+                texts: ["Drop Off", "at", "Washpro"],
+                elevation: 10,
+                iconPadding: 47,
+              ),
+            ],
+          ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CustomIconCard(
+                icons: [Icons.print_rounded],
+                iconSize: 65,
+                texts: ["Print", "", "Ticket"],
+                elevation: 10,
+                iconPadding: 37,
+              ),
+              CustomIconCard(
+                icons: [
+                  Icons.shopping_bag_rounded,
+                  Symbols.security_update_rounded
+                ],
+                iconSize: 65,
+                texts: ["Update", "bag", "Status"],
+                elevation: 10,
+                iconPadding: 40,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CustomIconCard(
+                icons: [Icons.local_laundry_service, MdiIcons.bikeFast],
+                iconSize: 65,
+                texts: const ["Pickup", "from", "Washpro"],
+                elevation: 10,
+                iconPadding: 47,
+              ),
+              CustomIconCard(
+                icons: [MdiIcons.account, MdiIcons.bikeFast],
+                iconSize: 65,
+                texts: const ["Delivery", "to", "Customer"],
+                elevation: 10,
+                iconPadding: 47,
               ),
             ],
           ),
