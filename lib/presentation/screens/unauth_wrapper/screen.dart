@@ -6,7 +6,6 @@ import 'package:washpro/routes/routes.gr.dart';
 
 @RoutePage()
 class UnAuthWrapperScreen extends StatelessWidget {
-  static const String route = '/unauth';
   const UnAuthWrapperScreen({Key? key}) : super(key: key);
 
   @override

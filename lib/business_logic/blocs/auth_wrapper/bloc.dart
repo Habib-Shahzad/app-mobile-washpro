@@ -5,10 +5,12 @@ part 'event.dart';
 part 'state.dart';
 
 class AuthWrapperBloc extends Bloc<AuthWrapperEvent, AuthWrapperState> {
-  AuthWrapperBloc() : super(OnNavigatorScreen()){
-    on<NavigateToNavigatorScreen>((event,emit){
-      emit(OnNavigatorScreen());
+  AuthWrapperBloc() : super(OnHomeScreen()) {
+    on<NavigateToHomeScreen>((event, emit) {
+      emit(OnHomeScreen());
+    });
+    on<NavigateToPickFromCustomerScreen>((event, emit) async {
+      emit(OnPickFromCustomerScreen());
     });
   }
-
 }

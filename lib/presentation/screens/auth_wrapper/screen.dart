@@ -4,6 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:washpro/business_logic/blocs/auth_wrapper/bloc.dart';
 import 'package:washpro/routes/routes.gr.dart';
 
+Map<Type, dynamic> routeMap = {
+  OnHomeScreen: const HomeRoute(),
+  OnPickFromCustomerScreen: const PickFromCustomerRoute(),
+};
+
 @RoutePage()
 class AuthWrapperScreen extends StatelessWidget {
   static const String route = '/auth';
@@ -16,7 +21,7 @@ class AuthWrapperScreen extends StatelessWidget {
       child: BlocBuilder<AuthWrapperBloc, AuthWrapperState>(
         builder: (context, state) {
           return AutoRouter.declarative(routes: (_) {
-            return [const HomeRoute()];
+            return [routeMap[state.runtimeType]];
           });
         },
       ),

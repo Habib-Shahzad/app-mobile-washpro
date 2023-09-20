@@ -11,27 +11,36 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text('Forgot Password')),
-        body: BlocProvider<ForgotPasswordScreenCubit>(
-          create: (context) => ForgotPasswordScreenCubit(
-              authRepository: RepositoryProvider.of<AuthRepository>(context)),
-          child: BlocConsumer<ForgotPasswordScreenCubit,
-              ForgotPasswordScreenState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              final unauthWrapperBloc =
-                  BlocProvider.of<UnauthWrapperBloc>(context);
+    Future<bool> navigateToLogin() async {
+      BlocProvider.of<UnauthWrapperBloc>(context).add(NavigateToLoginScreen());
+      return false;
+    }
 
-              return Column(children: [
-                const Text('Forgot Password Screen'),
-                TextButton(
-                    onPressed: () =>
-                        {unauthWrapperBloc.add(NavigateToLoginScreen())},
-                    child: const Text('Back to Login'))
-              ]);
-            },
-          ),
-        ));
+    return WillPopScope(
+        onWillPop: navigateToLogin,
+        child: Scaffold(
+            appBar: AppBar(
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: navigateToLogin,
+                ),
+                title: const Text('Forgot Password')),
+            body: BlocProvider<ForgotPasswordScreenCubit>(
+              create: (context) => ForgotPasswordScreenCubit(
+                  authRepository:
+                      RepositoryProvider.of<AuthRepository>(context)),
+              child: BlocConsumer<ForgotPasswordScreenCubit,
+                  ForgotPasswordScreenState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  return Column(children: [
+                    const Text('Forgot Password Screen'),
+                    TextButton(
+                        onPressed: navigateToLogin,
+                        child: const Text('Back to Login'))
+                  ]);
+                },
+              ),
+            )));
   }
 }

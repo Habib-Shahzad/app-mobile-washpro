@@ -7,4 +7,6 @@ abstract class AuthWrapperEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class NavigateToNavigatorScreen extends AuthWrapperEvent {}
+class NavigateToPickFromCustomerScreen extends AuthWrapperEvent {}
+
+class NavigateToHomeScreen extends AuthWrapperEvent {}

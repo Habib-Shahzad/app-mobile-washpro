@@ -15,7 +15,8 @@ import 'package:washpro/presentation/screens/forgot_password/screen.dart'
     as _i2;
 import 'package:washpro/presentation/screens/home/screen.dart' as _i3;
 import 'package:washpro/presentation/screens/login/screen.dart' as _i4;
-import 'package:washpro/presentation/screens/pickup_all/screen.dart' as _i5;
+import 'package:washpro/presentation/screens/pick_from_customer/screen.dart'
+    as _i5;
 import 'package:washpro/presentation/screens/unauth_wrapper/screen.dart' as _i6;
 
 abstract class $AppRouter extends _i7.RootStackRouter {
@@ -49,10 +50,10 @@ abstract class $AppRouter extends _i7.RootStackRouter {
         child: _i4.LoginScreen(key: args.key),
       );
     },
-    PickUpAllRoute.name: (routeData) {
+    PickFromCustomerRoute.name: (routeData) {
       return _i7.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.PickUpAllScreen(),
+        child: const _i5.PickFromCustomerScreen(),
       );
     },
     UnAuthWrapperRoute.name: (routeData) {
@@ -136,15 +137,15 @@ class LoginRouteArgs {
 }
 
 /// generated route for
-/// [_i5.PickUpAllScreen]
-class PickUpAllRoute extends _i7.PageRouteInfo<void> {
-  const PickUpAllRoute({List<_i7.PageRouteInfo>? children})
+/// [_i5.PickFromCustomerScreen]
+class PickFromCustomerRoute extends _i7.PageRouteInfo<void> {
+  const PickFromCustomerRoute({List<_i7.PageRouteInfo>? children})
       : super(
-          PickUpAllRoute.name,
+          PickFromCustomerRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'PickUpAllRoute';
+  static const String name = 'PickFromCustomerRoute';
 
   static const _i7.PageInfo<void> page = _i7.PageInfo<void>(name);
 }
