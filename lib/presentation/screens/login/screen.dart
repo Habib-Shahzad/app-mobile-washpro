@@ -71,8 +71,8 @@ class LoginScreen extends StatelessWidget {
                                               const Icon(Icons.alternate_email),
                                           validators:
                                               FormBuilderValidators.compose([
-                                            FormBuilderValidators.required(),
-                                            FormBuilderValidators.email(),
+                                            // FormBuilderValidators.required(),
+                                            // FormBuilderValidators.email(),
                                           ]),
                                         ),
                                         const SizedBox(height: 16 / 2),
@@ -86,8 +86,8 @@ class LoginScreen extends StatelessWidget {
                                           prefixIcon: const Icon(Icons.lock),
                                           validators:
                                               FormBuilderValidators.compose([
-                                            FormBuilderValidators.required(),
-                                            FormBuilderValidators.minLength(8),
+                                            // FormBuilderValidators.required(),
+                                            // FormBuilderValidators.minLength(8),
                                           ]),
                                         ),
                                         const SizedBox(

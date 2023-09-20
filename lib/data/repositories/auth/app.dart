@@ -17,7 +17,7 @@ class AppAuthRepository extends AuthRepository {
 
   @override
   Future<void> signInWithEmailAndPassword(String email, String password) {
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(microseconds: 500), () {
       currentUser = User(userId: "123", firstName: "John", lastName: password);
       _controller.add(AuthenticationStatus.authenticated);
     });
@@ -31,7 +31,7 @@ class AppAuthRepository extends AuthRepository {
 
   @override
   Future<void> signOut() {
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(microseconds: 500), () {
       currentUser = null;
       _controller.add(AuthenticationStatus.unauthenticated);
     });
