@@ -7,7 +7,8 @@ import 'package:washpro/presentation/widgets/custom_elevated_button.dart';
 import 'package:washpro/presentation/widgets/custom_rounded_button.dart';
 
 class PickUpScreen extends StatelessWidget {
-  const PickUpScreen({super.key});
+  final Customer customer;
+  const PickUpScreen({super.key, required this.customer});
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +66,9 @@ class PickUpScreen extends StatelessWidget {
                 ),
                 PickupCard(
                   customer: Customer(
-                    number: '123',
-                    name: 'Franderis Mercedes',
-                    address: '269 S 1st Ave, Mount Vernon, NY 11550',
+                    number: customer.number,
+                    name: customer.name,
+                    address: customer.address,
                   ),
                 ),
                 const SizedBox(

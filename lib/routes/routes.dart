@@ -6,6 +6,7 @@ import 'package:washpro/data/repositories/auth/base.dart';
 import 'package:washpro/presentation/screens/forgot_password/screen.dart';
 import 'package:washpro/presentation/screens/home/screen.dart';
 import 'package:washpro/presentation/screens/login/screen.dart';
+import 'package:washpro/presentation/screens/pick_from_customer/pickup_card.dart';
 import 'package:washpro/presentation/screens/pick_from_customer/screen.dart';
 import 'package:washpro/presentation/screens/pick_up/screen.dart';
 
@@ -62,7 +63,9 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: Routes.pickUp.route,
-      builder: (context, state) => const PickUpScreen(),
+      builder: (context, state) {
+        return PickUpScreen(customer: state.extra as Customer);
+      },
     ),
   ],
 );

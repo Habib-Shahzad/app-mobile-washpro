@@ -13,10 +13,6 @@ class PickFromCustomerScreen extends StatelessWidget {
       return false;
     }
 
-    navigateToPickUp() async {
-      context.push(Routes.pickUp.route);
-    }
-
     final customers = [
       Customer(
         number: '123',
@@ -89,7 +85,12 @@ class PickFromCustomerScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return PickupCard(
                             customer: customers[index],
-                            onTap: navigateToPickUp,
+                            onTap: () => {
+                              context.push(
+                                Routes.pickUp.route,
+                                extra: customers[index],
+                              ),
+                            },
                           );
                         },
                       ))),
