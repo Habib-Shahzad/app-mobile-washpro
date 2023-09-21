@@ -8,6 +8,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: AuthWrapperRoute.page, children: [
           AutoRoute(page: HomeRoute.page),
           AutoRoute(page: PickFromCustomerRoute.page),
+          AutoRoute(page: PickUpRoute.page),
         ]),
         AutoRoute(initial: true, page: UnAuthWrapperRoute.page, children: [
           AutoRoute(page: LoginRoute.page),

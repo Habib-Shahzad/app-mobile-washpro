@@ -39,6 +39,9 @@ class Styles {
     bodyLarge: GoogleFonts.poppins(
       fontSize: 21,
     ),
+    labelLarge: GoogleFonts.poppins(
+      fontSize: 19,
+    ),
     bodyMedium: GoogleFonts.poppins(),
     bodySmall: GoogleFonts.poppins(),
     displaySmall: GoogleFonts.poppins(),

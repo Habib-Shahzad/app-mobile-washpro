@@ -32,8 +32,8 @@ class CustomIconCard extends StatelessWidget {
           child: Padding(
             padding: cardPadding, // Apply padding to the card content
             child: SizedBox(
-              width: 140,
-              height: 140,
+              width: 135,
+              height: 135,
               child: Stack(
                 alignment: Alignment.topLeft,
                 children: <Widget>[

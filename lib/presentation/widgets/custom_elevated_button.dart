@@ -7,21 +7,28 @@ class CustomElevatedButton extends StatelessWidget {
   final String buttonText;
   final double width;
   final double height;
+  final IconData? iconData;
 
-  const CustomElevatedButton(
-      {Key? key,
-      this.onPressed,
-      this.onLongPress,
-      this.isLoading = false,
-      this.height = 20,
-      this.width = 20,
-      required this.buttonText})
-      : super(key: key);
+  const CustomElevatedButton({
+    Key? key,
+    this.onPressed,
+    this.onLongPress,
+    this.isLoading = false,
+    this.height = 20,
+    this.width = 20,
+    required this.buttonText,
+    this.iconData,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+      ),
       child: isLoading
           ? SizedBox(
               width: width,
@@ -31,11 +38,31 @@ class CustomElevatedButton extends StatelessWidget {
                 strokeWidth: 3,
               ),
             )
-          : Text(buttonText,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelLarge
-                  ?.copyWith(color: Colors.white)),
+          : (iconData != null)
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      iconData,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(width: 8.0),
+                    Text(
+                      buttonText,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge
+                          ?.copyWith(color: Colors.white),
+                    ),
+                  ],
+                )
+              : Text(
+                  buttonText,
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge
+                      ?.copyWith(color: Colors.white),
+                ),
     );
   }
 }

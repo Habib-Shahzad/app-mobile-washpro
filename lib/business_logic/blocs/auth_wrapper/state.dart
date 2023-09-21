@@ -10,3 +10,5 @@ abstract class AuthWrapperState extends Equatable {
 class OnHomeScreen extends AuthWrapperState {}
 
 class OnPickFromCustomerScreen extends AuthWrapperState {}
+
+class OnPickUpScreen extends AuthWrapperState {}

@@ -7,11 +7,11 @@ import 'package:washpro/routes/routes.gr.dart';
 Map<Type, dynamic> routeMap = {
   OnHomeScreen: const HomeRoute(),
   OnPickFromCustomerScreen: const PickFromCustomerRoute(),
+  OnPickUpScreen: const PickUpRoute(),
 };
 
 @RoutePage()
 class AuthWrapperScreen extends StatelessWidget {
-  static const String route = '/auth';
   const AuthWrapperScreen({Key? key}) : super(key: key);
 
   @override

@@ -16,10 +16,33 @@ class PickFromCustomerScreen extends StatelessWidget {
       return false;
     }
 
+    navigateToPickUp() async {
+      BlocProvider.of<AuthWrapperBloc>(context).add(NavigateToPickUpScreen());
+    }
+
+    final customers = [
+      Customer(
+        number: '123',
+        name: 'Franderis Mercedes',
+        address: '269 S 1st Ave, Mount Vernon, NY 11550',
+      ),
+      Customer(
+        number: '14569',
+        name: 'Frank Pumillo',
+        address: '269 S 1st Ave, Mount Vernon, NY 11550',
+      ),
+    ];
+
     return WillPopScope(
       onWillPop: navigateToHome,
       child: Scaffold(
         appBar: AppBar(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.0), // Adjust the radius as needed
+              bottomRight: Radius.circular(20.0), // Adjust the radius as needed
+            ),
+          ),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: navigateToHome,
@@ -61,20 +84,18 @@ class PickFromCustomerScreen extends StatelessWidget {
         body: Center(
           child: Column(
             children: [
-              PickupCard(
-                customer: Customer(
-                  number: '123',
-                  name: 'Franderis Mercedes',
-                  address: '269 S 1st Ave, Mount Vernon, NY 11550',
-                ),
-              ),
-              PickupCard(
-                customer: Customer(
-                  number: '14569',
-                  name: 'Frank Pumillo',
-                  address: '269 S 1st Ave, Mount Vernon, NY 11550',
-                ),
-              ),
+              Expanded(
+                  child: Container(
+                      margin: const EdgeInsets.all(16.0),
+                      child: ListView.builder(
+                        itemCount: customers.length,
+                        itemBuilder: (context, index) {
+                          return PickupCard(
+                            customer: customers[index],
+                            onTap: navigateToPickUp,
+                          );
+                        },
+                      ))),
             ],
           ),
         ),

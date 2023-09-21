@@ -10,3 +10,5 @@ abstract class AuthWrapperEvent extends Equatable {
 class NavigateToPickFromCustomerScreen extends AuthWrapperEvent {}
 
 class NavigateToHomeScreen extends AuthWrapperEvent {}
+
+class NavigateToPickUpScreen extends AuthWrapperEvent {}
