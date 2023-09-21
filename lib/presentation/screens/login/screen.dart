@@ -1,16 +1,16 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:washpro/business_logic/blocs/unauth_wrapper/bloc.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:washpro/business_logic/cubits/login_screen/cubit.dart';
 import 'package:washpro/data/repositories/auth/base.dart';
 import 'package:washpro/logger.dart';
 import 'package:washpro/presentation/widgets/custom_elevated_button.dart';
 import 'package:washpro/presentation/widgets/custom_text_field.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:washpro/routes/routes.dart';
 
-@RoutePage()
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final TextEditingController _emailController = TextEditingController();
@@ -27,8 +27,6 @@ class LoginScreen extends StatelessWidget {
           child: BlocConsumer<LoginScreenCubit, LoginScreenState>(
               listener: ((context, state) => {}),
               builder: (context, state) {
-                final unauthWrapperBloc =
-                    BlocProvider.of<UnauthWrapperBloc>(context);
                 final loginCubit = BlocProvider.of<LoginScreenCubit>(context);
                 final formState = FormBuilder.of(context)!;
 
@@ -121,8 +119,8 @@ class LoginScreen extends StatelessWidget {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            unauthWrapperBloc.add(
-                                                NavigateToForgotPasswordScreen());
+                                            context.push(
+                                                Routes.forgotPassword.route);
                                           },
                                           child: const Text(
                                             "I forgot my password",

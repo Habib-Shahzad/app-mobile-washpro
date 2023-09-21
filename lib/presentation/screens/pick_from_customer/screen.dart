@@ -1,23 +1,20 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:washpro/business_logic/blocs/auth_wrapper/bloc.dart';
-
+import 'package:go_router/go_router.dart';
+import 'package:washpro/routes/routes.dart';
 import 'pickup_card.dart';
 
-@RoutePage()
 class PickFromCustomerScreen extends StatelessWidget {
   const PickFromCustomerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     Future<bool> navigateToHome() async {
-      BlocProvider.of<AuthWrapperBloc>(context).add(NavigateToHomeScreen());
+      context.pop();
       return false;
     }
 
     navigateToPickUp() async {
-      BlocProvider.of<AuthWrapperBloc>(context).add(NavigateToPickUpScreen());
+      context.push(Routes.pickUp.route);
     }
 
     final customers = [
