@@ -1,13 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:washpro/business_logic/blocs/auth/bloc.dart';
 import 'package:washpro/data/repositories/auth/app.dart';
 import 'package:washpro/data/repositories/auth/base.dart';
 import 'package:washpro/data/repositories/user_repository/app.dart';
 import 'package:washpro/routes/routes.dart';
-import 'package:washpro/routes/routes.gr.dart';
 import 'package:washpro/styles.dart';
 
 class App extends StatelessWidget {
@@ -45,8 +43,6 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  final AppRouter _appRouter = AppRouter();
-
   @override
   void initState() {
     super.initState();
@@ -56,23 +52,20 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthenticationState>(
       builder: (context, state) {
+        bool isAuthenticated =
+            state.status == AuthenticationStatus.authenticated;
+
+        if (isAuthenticated) {
+          appRouter.go(Routes.home.route);
+        } else {
+          appRouter.go(Routes.login.route);
+        }
+
         return MaterialApp.router(
+          routerConfig: appRouter,
+          localizationsDelegates: const [FormBuilderLocalizations.delegate],
           debugShowCheckedModeBanner: false,
           theme: Styles.mainTheme,
-          routerDelegate: AutoRouterDelegate.declarative(
-            _appRouter,
-            routes: (_) => [
-              // if the user is logged in, they may proceed to the Main App
-              if (state.status == AuthenticationStatus.authenticated)
-                const AuthWrapperRoute()
-              // if they are not logged in, bring them to the Login page
-              else if (state.status == AuthenticationStatus.unauthenticated)
-                const UnAuthWrapperRoute()
-            ],
-          ),
-          routeInformationParser:
-              _appRouter.defaultRouteParser(includePrefixMatches: true),
-          localizationsDelegates: const [FormBuilderLocalizations.delegate],
         );
       },
     );

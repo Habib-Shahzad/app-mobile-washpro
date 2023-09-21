@@ -1,27 +1,23 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:washpro/business_logic/blocs/auth_wrapper/bloc.dart';
 import 'package:washpro/presentation/screens/pick_from_customer/pickup_card.dart';
 
 import 'package:washpro/presentation/widgets/custom_elevated_button.dart';
 import 'package:washpro/presentation/widgets/custom_rounded_button.dart';
 
-@RoutePage()
 class PickUpScreen extends StatelessWidget {
   const PickUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Future<bool> navigateToPickUpFromCustomerScreen() async {
-      BlocProvider.of<AuthWrapperBloc>(context)
-          .add(NavigateToPickFromCustomerScreen());
+    Future<bool> goBack() async {
+      context.pop();
       return false;
     }
 
     return WillPopScope(
-      onWillPop: navigateToPickUpFromCustomerScreen,
+      onWillPop: goBack,
       child: Scaffold(
         appBar: AppBar(
           shape: const RoundedRectangleBorder(
@@ -32,7 +28,7 @@ class PickUpScreen extends StatelessWidget {
           ),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: navigateToPickUpFromCustomerScreen,
+            onPressed: goBack,
           ),
           title: Text(
             'Pickup',

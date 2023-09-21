@@ -1,18 +1,16 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:washpro/business_logic/blocs/unauth_wrapper/bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:washpro/business_logic/cubits/forgot_password_screen/cubit.dart';
 import 'package:washpro/data/repositories/auth/base.dart';
 
-@RoutePage()
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     Future<bool> navigateToLogin() async {
-      BlocProvider.of<UnauthWrapperBloc>(context).add(NavigateToLoginScreen());
+      context.pop();
       return false;
     }
 

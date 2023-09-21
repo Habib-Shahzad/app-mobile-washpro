@@ -1,22 +1,20 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:washpro/business_logic/blocs/auth/bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:washpro/business_logic/blocs/auth_wrapper/bloc.dart';
 import 'package:washpro/presentation/widgets/custom_card.dart';
+import 'package:washpro/routes/routes.dart';
 import 'package:washpro/temp.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
-@RoutePage()
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     navigateToPickUp() {
-      BlocProvider.of<AuthWrapperBloc>(context)
-          .add(NavigateToPickFromCustomerScreen());
+      context.push(Routes.pickUpFromCustomer.route);
     }
 
     TextStyle secondaryTitleMedium =
@@ -34,7 +32,7 @@ class HomeScreen extends StatelessWidget {
             context: context,
             builder: (context) => AlertDialog(
               title: const Text('Exit App'),
-              content: const Text('Do you want to exit an App?'),
+              content: const Text('Do you want to exit the App?'),
               actions: [
                 ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(false),
