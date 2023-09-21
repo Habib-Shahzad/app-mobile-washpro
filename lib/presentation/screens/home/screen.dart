@@ -13,8 +13,24 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    navigateToPickUp() {
-      context.push(Routes.pickUpFromCustomer.route);
+    push(Routes route) {
+      context.push(route.route);
+    }
+
+    navigateToCustomersPage() {
+      push(Routes.pickUpFromCustomer);
+    }
+
+    navigateToDropOff() {
+      push(Routes.dropOff);
+    }
+
+    navigateToUpdateBag() {
+      push(Routes.updateBag);
+    }
+
+    navigateToPrintScreen() {
+      push(Routes.printTicket);
     }
 
     TextStyle secondaryTitleMedium =
@@ -36,7 +52,6 @@ class HomeScreen extends StatelessWidget {
               actions: [
                 ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  //return false when click on "NO"
                   child: const Text('No'),
                 ),
                 ElevatedButton(
@@ -121,39 +136,42 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomIconCard(
-                  onTap: navigateToPickUp,
+                  onTap: navigateToCustomersPage,
                   icons: [MdiIcons.account, Symbols.laundry],
                   iconSize: 65,
                   texts: const ["Pickup", "from", "Customer"],
                   elevation: 10,
                   iconPadding: 37,
                 ),
-                const CustomIconCard(
-                  icons: [Icons.local_laundry_service, Symbols.laundry],
+                CustomIconCard(
+                  onTap: navigateToDropOff,
+                  icons: const [Icons.local_laundry_service, Symbols.laundry],
                   iconSize: 65,
-                  texts: ["Drop Off", "at", "Washpro"],
+                  texts: const ["Drop Off", "at", "Washpro"],
                   elevation: 10,
                   iconPadding: 47,
                 ),
               ],
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomIconCard(
-                  icons: [Icons.print_rounded],
+                  onTap: navigateToPrintScreen,
+                  icons: const [Icons.print_rounded],
                   iconSize: 65,
-                  texts: ["Print", "", "Ticket"],
+                  texts: const ["Print", "", "Ticket"],
                   elevation: 10,
                   iconPadding: 37,
                 ),
                 CustomIconCard(
-                  icons: [
+                  onTap: navigateToUpdateBag,
+                  icons: const [
                     Icons.shopping_bag_rounded,
                     Symbols.security_update_rounded
                   ],
                   iconSize: 65,
-                  texts: ["Update", "bag", "Status"],
+                  texts: const ["Update", "bag", "Status"],
                   elevation: 10,
                   iconPadding: 40,
                 ),

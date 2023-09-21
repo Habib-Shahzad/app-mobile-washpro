@@ -9,6 +9,9 @@ import 'package:washpro/presentation/screens/login/screen.dart';
 import 'package:washpro/presentation/screens/pick_from_customer/pickup_card.dart';
 import 'package:washpro/presentation/screens/pick_from_customer/screen.dart';
 import 'package:washpro/presentation/screens/pick_up/screen.dart';
+import 'package:washpro/presentation/screens/drop_off/screen.dart';
+import 'package:washpro/presentation/screens/print_ticket/screen.dart';
+import 'package:washpro/presentation/screens/update_bag/screen.dart';
 
 enum Routes {
   login,
@@ -17,6 +20,9 @@ enum Routes {
   home,
   pickUpFromCustomer,
   pickUp,
+  updateBag,
+  dropOff,
+  printTicket,
 }
 
 extension RoutesExtension on Routes {
@@ -65,6 +71,24 @@ final appRouter = GoRouter(
       path: Routes.pickUp.route,
       builder: (context, state) {
         return PickUpScreen(customer: state.extra as Customer);
+      },
+    ),
+    GoRoute(
+      path: Routes.dropOff.route,
+      builder: (context, state) {
+        return const DropOffScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.updateBag.route,
+      builder: (context, state) {
+        return const UpdateBagScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.printTicket.route,
+      builder: (context, state) {
+        return const PrintTicketScreen();
       },
     ),
   ],
