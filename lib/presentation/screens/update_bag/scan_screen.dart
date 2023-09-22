@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:washpro/presentation/widgets/custom_app_bar.dart';
 import 'package:washpro/routes/routes.dart';
 
-class DropOffScreen extends StatelessWidget {
-  const DropOffScreen({super.key});
+class UpdateBagScanScreen extends StatelessWidget {
+  const UpdateBagScanScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,9 @@ class DropOffScreen extends StatelessWidget {
           child: CustomAppBar(
             goBack: goBack,
             titleTexts: const [
-              'DropOff',
-              'at',
-              'WashPro',
+              'Update',
+              'bag',
+              'Status',
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:washpro/routes/routes.dart';
 
 class PrintTicketScreen extends StatelessWidget {
   const PrintTicketScreen({super.key});
@@ -7,7 +8,7 @@ class PrintTicketScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future<bool> goBack() async {
-      context.pop();
+      context.go(Routes.home.route);
       return false;
     }
 
@@ -32,7 +33,7 @@ class PrintTicketScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: Text(
-                  'Prink',
+                  'Print',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!

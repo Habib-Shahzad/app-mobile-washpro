@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:washpro/presentation/widgets/custom_app_bar.dart';
 import 'package:washpro/routes/routes.dart';
 import 'pickup_card.dart';
 
@@ -9,7 +10,7 @@ class PickFromCustomerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future<bool> navigateToHome() async {
-      context.pop();
+      context.go(Routes.home.route);
       return false;
     }
 
@@ -29,48 +30,14 @@ class PickFromCustomerScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: navigateToHome,
       child: Scaffold(
-        appBar: AppBar(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.0), // Adjust the radius as needed
-              bottomRight: Radius.circular(20.0), // Adjust the radius as needed
-            ),
-          ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: navigateToHome,
-          ),
-          title: Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Text(
-                  'Pick',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(color: Theme.of(context).colorScheme.secondary),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Text(
-                  'from',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Theme.of(context).colorScheme.secondary),
-                ),
-              ),
-              Text(
-                'Customer',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .copyWith(color: Theme.of(context).colorScheme.secondary),
-              ),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: CustomAppBar(
+            goBack: navigateToHome,
+            titleTexts: const [
+              'PickUp',
+              'from',
+              'Customer',
             ],
           ),
         ),

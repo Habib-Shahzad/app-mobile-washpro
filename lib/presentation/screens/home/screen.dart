@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     push(Routes route) {
-      context.push(route.route);
+      context.go(route.route);
     }
 
     navigateToCustomersPage() {
@@ -31,6 +31,10 @@ class HomeScreen extends StatelessWidget {
 
     navigateToPrintScreen() {
       push(Routes.printTicket);
+    }
+
+    navigateToWashProScreen() {
+      push(Routes.pickUpFromWashPro);
     }
 
     TextStyle secondaryTitleMedium =
@@ -181,6 +185,7 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomIconCard(
+                  onTap: navigateToWashProScreen,
                   icons: [Icons.local_laundry_service, MdiIcons.bikeFast],
                   iconSize: 65,
                   texts: const ["Pickup", "from", "Washpro"],
