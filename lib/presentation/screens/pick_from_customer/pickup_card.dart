@@ -32,7 +32,7 @@ class PickupCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '#${customer.number}',
+                      customer.number,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,

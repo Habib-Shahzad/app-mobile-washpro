@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
     }
 
     navigateToUpdateBag() {
-      push(Routes.updateBag);
+      push(Routes.updateBagScan);
     }
 
     navigateToPrintScreen() {

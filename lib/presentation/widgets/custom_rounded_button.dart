@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 
 class CustomRoundedButton extends StatelessWidget {
   final String text;
+  final VoidCallback? onPressed;
 
-  const CustomRoundedButton(this.text, {super.key});
+  const CustomRoundedButton(this.text, {super.key, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
         FocusManager.instance.primaryFocus?.unfocus();
+        if (onPressed != null) {
+          onPressed!();
+        }
       },
       style: ElevatedButton.styleFrom(
         fixedSize: const Size.fromHeight(40.0),

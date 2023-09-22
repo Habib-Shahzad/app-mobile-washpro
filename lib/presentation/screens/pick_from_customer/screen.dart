@@ -16,12 +16,12 @@ class PickFromCustomerScreen extends StatelessWidget {
 
     final customers = [
       Customer(
-        number: '123',
+        number: '#123 | #999',
         name: 'Franderis Mercedes',
         address: '269 S 1st Ave, Mount Vernon, NY 11550',
       ),
       Customer(
-        number: '14569',
+        number: '#14569',
         name: 'Frank Pumillo',
         address: '269 S 1st Ave, Mount Vernon, NY 11550',
       ),

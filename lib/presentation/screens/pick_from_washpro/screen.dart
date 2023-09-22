@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:washpro/presentation/screens/pick_from_customer/pickup_card.dart';
 import 'package:washpro/presentation/widgets/custom_app_bar.dart';
 import 'package:washpro/routes/routes.dart';
 
@@ -27,10 +28,42 @@ class PickFromWashProScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: const Padding(
-          padding: EdgeInsets.all(16.0),
-          child: SizedBox(height: 20),
-        ),
+        body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 5,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Tap to Scan ',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: Theme.of(context).colorScheme.primary),
+                  ),
+                ),
+                PickupCard(
+                  customer: Customer(
+                    number: "#123",
+                    name: "Wash and Fold",
+                    address: "WF1003",
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                PickupCard(
+                  customer: Customer(
+                    number: "#14569",
+                    name: "Wash and Fold",
+                    address: "WF1004",
+                  ),
+                ),
+              ],
+            )),
       ),
     );
   }

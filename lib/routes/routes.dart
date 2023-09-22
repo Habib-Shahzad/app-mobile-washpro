@@ -12,7 +12,9 @@ import 'package:washpro/presentation/screens/pick_from_washpro/screen.dart';
 import 'package:washpro/presentation/screens/pick_up/screen.dart';
 import 'package:washpro/presentation/screens/drop_off/screen.dart';
 import 'package:washpro/presentation/screens/print_ticket/screen.dart';
+import 'package:washpro/presentation/screens/update_bag/scan_screen.dart';
 import 'package:washpro/presentation/screens/update_bag/screen.dart';
+import 'package:washpro/temp.dart';
 
 enum Routes {
   login,
@@ -21,7 +23,8 @@ enum Routes {
   home,
   pickUpFromCustomer,
   pickUp,
-  updateBag,
+  updateBagScan,
+  updateBagResult,
   dropOff,
   printTicket,
   pickUpFromWashPro,
@@ -41,6 +44,7 @@ final unauthenticatedRoutes = [
 final appRouter = GoRouter(
   initialLocation: Routes.home.route,
   redirect: (BuildContext context, GoRouterState state) {
+    if (debugScreen != null) return null;
     bool isAuthenticated = BlocProvider.of<AuthBloc>(context).state.status ==
         AuthenticationStatus.authenticated;
 
@@ -87,7 +91,13 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: Routes.updateBag.route,
+      path: Routes.updateBagScan.route,
+      builder: (context, state) {
+        return const UpdateBagScanScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.updateBagResult.route,
       builder: (context, state) {
         return const UpdateBagScreen();
       },

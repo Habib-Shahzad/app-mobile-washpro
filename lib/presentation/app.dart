@@ -7,6 +7,7 @@ import 'package:washpro/data/repositories/auth/base.dart';
 import 'package:washpro/data/repositories/user_repository/app.dart';
 import 'package:washpro/routes/routes.dart';
 import 'package:washpro/styles.dart';
+import 'package:washpro/temp.dart';
 
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
@@ -52,13 +53,17 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthenticationState>(
       builder: (context, state) {
-        bool isAuthenticated =
-            state.status == AuthenticationStatus.authenticated;
-
-        if (isAuthenticated) {
-          appRouter.go(Routes.home.route);
+        if (debugScreen != null) {
+          appRouter.go(debugScreen!.route);
         } else {
-          appRouter.go(Routes.login.route);
+          bool isAuthenticated =
+              state.status == AuthenticationStatus.authenticated;
+
+          if (isAuthenticated) {
+            appRouter.go(Routes.home.route);
+          } else {
+            appRouter.go(Routes.login.route);
+          }
         }
 
         return MaterialApp.router(

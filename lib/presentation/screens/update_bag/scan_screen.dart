@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:washpro/presentation/widgets/custom_app_bar.dart';
+import 'package:washpro/presentation/widgets/custom_rounded_button.dart';
 import 'package:washpro/routes/routes.dart';
 
 class UpdateBagScanScreen extends StatelessWidget {
@@ -27,9 +28,10 @@ class UpdateBagScanScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: const Padding(
-          padding: EdgeInsets.all(16.0),
-          child: SizedBox(height: 20),
+        body: Center(
+          child: CustomRoundedButton("Scan a Bag", onPressed: () {
+            context.push(Routes.updateBagResult.route);
+          }),
         ),
       ),
     );
