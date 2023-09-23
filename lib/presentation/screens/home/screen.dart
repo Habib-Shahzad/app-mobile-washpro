@@ -37,6 +37,47 @@ class HomeScreen extends StatelessWidget {
       push(Routes.pickUpFromWashPro);
     }
 
+    navigateToDeliveryScreen() {}
+
+    final iconCardPropsList = [
+      IconCardProps(
+        onTap: navigateToCustomersPage,
+        icons: [MdiIcons.account, Symbols.laundry],
+        texts: const ["Pickup", "from", "Customer"],
+        iconPadding: 37,
+      ),
+      IconCardProps(
+        onTap: navigateToDropOff,
+        icons: [Icons.local_laundry_service, Symbols.laundry],
+        texts: const ["Drop Off", "at", "Washpro"],
+        iconPadding: 47,
+      ),
+      IconCardProps(
+        onTap: navigateToPrintScreen,
+        icons: [Icons.print_rounded],
+        texts: const ["Print", "", "Ticket"],
+        iconPadding: 37,
+      ),
+      IconCardProps(
+        onTap: navigateToUpdateBag,
+        icons: [Icons.shopping_bag_rounded, Symbols.security_update_rounded],
+        texts: const ["Update", "bag", "Status"],
+        iconPadding: 40,
+      ),
+      IconCardProps(
+        onTap: navigateToWashProScreen,
+        icons: [Icons.local_laundry_service, MdiIcons.bikeFast],
+        texts: const ["Pickup", "from", "Washpro"],
+        iconPadding: 47,
+      ),
+      IconCardProps(
+        onTap: navigateToDeliveryScreen,
+        icons: [MdiIcons.account, MdiIcons.bikeFast],
+        texts: const ["Delivery", "to", "Customer"],
+        iconPadding: 47,
+      ),
+    ];
+
     TextStyle secondaryTitleMedium =
         Theme.of(context).textTheme.titleMedium!.copyWith(
               color: Theme.of(context).colorScheme.secondary,
@@ -60,7 +101,6 @@ class HomeScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(true),
-                  //return true when click on "Yes"
                   child: const Text('Yes'),
                 ),
               ],
@@ -76,41 +116,44 @@ class HomeScreen extends StatelessWidget {
           toolbarHeight: 100.0,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.0), // Adjust the radius as needed
-              bottomRight: Radius.circular(20.0), // Adjust the radius as needed
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
             ),
           ),
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                textBaseline: TextBaseline.alphabetic,
-                children: [
-                  Text(
-                    'Hello',
-                    style: secondaryTitleSmall,
-                  ),
-                  const SizedBox(width: 2),
-                  Text(
-                    currentUser?.firstName ?? " Valet",
-                    style: secondaryTitleMedium,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4), // Spacing
-              Row(
-                children: [
-                  Icon(MdiIcons.calendar),
-                  const SizedBox(width: 4),
-                  Text(
-                    "Today",
-                    style: secondaryTitleSmall,
-                  ),
-                  Icon(MdiIcons.chevronDown),
-                ],
-              ),
-            ],
+          title: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    Text(
+                      'Hello',
+                      style: secondaryTitleSmall,
+                    ),
+                    const SizedBox(width: 1),
+                    Text(
+                      currentUser?.firstName ?? " Valet,",
+                      style: secondaryTitleMedium,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(MdiIcons.calendar),
+                    const SizedBox(width: 4),
+                    Text(
+                      "Today",
+                      style: secondaryTitleSmall,
+                    ),
+                    Icon(MdiIcons.chevronDown),
+                  ],
+                ),
+              ],
+            ),
           ),
           actions: [
             Padding(
@@ -133,73 +176,23 @@ class HomeScreen extends StatelessWidget {
                 )),
           ],
         ),
-        body: Column(
-          children: [
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomIconCard(
-                  onTap: navigateToCustomersPage,
-                  icons: [MdiIcons.account, Symbols.laundry],
-                  iconSize: 65,
-                  texts: const ["Pickup", "from", "Customer"],
-                  elevation: 10,
-                  iconPadding: 37,
+        body: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.all(16.0),
+              sliver: SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 12.0,
+                  crossAxisSpacing: 12.0,
                 ),
-                CustomIconCard(
-                  onTap: navigateToDropOff,
-                  icons: const [Icons.local_laundry_service, Symbols.laundry],
-                  iconSize: 65,
-                  texts: const ["Drop Off", "at", "Washpro"],
-                  elevation: 10,
-                  iconPadding: 47,
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return CustomIconCard(props: iconCardPropsList[index]);
+                  },
+                  childCount: iconCardPropsList.length,
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomIconCard(
-                  onTap: navigateToPrintScreen,
-                  icons: const [Icons.print_rounded],
-                  iconSize: 65,
-                  texts: const ["Print", "", "Ticket"],
-                  elevation: 10,
-                  iconPadding: 37,
-                ),
-                CustomIconCard(
-                  onTap: navigateToUpdateBag,
-                  icons: const [
-                    Icons.shopping_bag_rounded,
-                    Symbols.security_update_rounded
-                  ],
-                  iconSize: 65,
-                  texts: const ["Update", "bag", "Status"],
-                  elevation: 10,
-                  iconPadding: 40,
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomIconCard(
-                  onTap: navigateToWashProScreen,
-                  icons: [Icons.local_laundry_service, MdiIcons.bikeFast],
-                  iconSize: 65,
-                  texts: const ["Pickup", "from", "Washpro"],
-                  elevation: 10,
-                  iconPadding: 47,
-                ),
-                CustomIconCard(
-                  icons: [MdiIcons.account, MdiIcons.bikeFast],
-                  iconSize: 65,
-                  texts: const ["Delivery", "to", "Customer"],
-                  elevation: 10,
-                  iconPadding: 47,
-                ),
-              ],
+              ),
             ),
           ],
         ),

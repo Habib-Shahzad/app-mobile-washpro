@@ -1,29 +1,37 @@
 import 'package:flutter/material.dart';
 
-class CustomIconCard extends StatelessWidget {
+class IconCardProps {
+  final VoidCallback onTap;
   final List<IconData> icons;
+  final List<String> texts;
+  final double iconPadding;
+
+  IconCardProps({
+    required this.onTap,
+    required this.icons,
+    required this.texts,
+    required this.iconPadding,
+  });
+}
+
+class CustomIconCard extends StatelessWidget {
+  final IconCardProps props;
   final double iconSize;
   final double elevation;
-  final List<String> texts;
   final EdgeInsetsGeometry cardPadding;
-  final double iconPadding;
-  final VoidCallback? onTap;
 
   const CustomIconCard({
     Key? key,
-    required this.icons,
-    required this.iconSize,
-    required this.elevation,
-    required this.texts,
+    required this.props,
     this.cardPadding = const EdgeInsets.all(16.0),
-    this.iconPadding = 30,
-    this.onTap,
+    this.iconSize = 65,
+    this.elevation = 5,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: onTap,
+        onTap: props.onTap,
         child: Card(
           elevation: elevation,
           shape: RoundedRectangleBorder(
@@ -37,20 +45,20 @@ class CustomIconCard extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.topLeft,
                 children: <Widget>[
-                  if (icons.isNotEmpty)
-                    Icon(
-                      icons[0],
-                      color: Theme.of(context).colorScheme.onSurface,
-                      size: iconSize,
-                    ),
-                  if (icons.length == 2)
+                  if (props.icons.length == 2)
                     Padding(
-                      padding: EdgeInsets.only(left: iconPadding),
+                      padding: EdgeInsets.only(left: props.iconPadding),
                       child: Icon(
-                        icons[1],
+                        props.icons[1],
                         color: Theme.of(context).colorScheme.primary,
                         size: iconSize,
                       ),
+                    ),
+                  if (props.icons.isNotEmpty)
+                    Icon(
+                      props.icons[0],
+                      color: Theme.of(context).colorScheme.onSurface,
+                      size: iconSize,
                     ),
                   Positioned(
                     left: 0,
@@ -63,7 +71,7 @@ class CustomIconCard extends StatelessWidget {
                           textBaseline: TextBaseline.alphabetic,
                           children: <Widget>[
                             Text(
-                              texts[0],
+                              props.texts[0],
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge!
@@ -74,7 +82,7 @@ class CustomIconCard extends StatelessWidget {
                             ),
                             const SizedBox(width: 4.0), // Spacing
                             Text(
-                              texts[1],
+                              props.texts[1],
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
@@ -87,7 +95,7 @@ class CustomIconCard extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          texts[2],
+                          props.texts[2],
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!

@@ -34,7 +34,9 @@ class Styles {
       fontSize: 25,
       fontWeight: FontWeight.w300,
     ),
-    titleMedium: GoogleFonts.poppins(),
+    titleMedium: GoogleFonts.poppins(
+      fontSize: 19,
+    ),
     titleSmall: GoogleFonts.poppins(),
     bodyLarge: GoogleFonts.poppins(
       fontSize: 21,
