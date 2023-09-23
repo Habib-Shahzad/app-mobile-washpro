@@ -22,7 +22,7 @@ class PickupCard extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
-          elevation: 10.0,
+          elevation: 5.0,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -41,14 +41,14 @@ class PickupCard extends StatelessWidget {
                     const Icon(Icons.person_outline),
                   ],
                 ),
-                const SizedBox(height: 8.0),
+                const SizedBox(height: 4.0),
                 Text(
                   customer.name,
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                       ),
                 ),
-                const SizedBox(height: 8.0),
+                const SizedBox(height: 4.0),
                 Text(
                   customer.address,
                   style: const TextStyle(

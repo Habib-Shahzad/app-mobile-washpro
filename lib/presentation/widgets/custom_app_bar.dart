@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -17,7 +20,11 @@ class CustomAppBar extends StatelessWidget {
         ),
       ),
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
+        icon: kIsWeb
+            ? const Icon(Icons.arrow_back)
+            : Platform.isAndroid
+                ? const Icon(Icons.arrow_back)
+                : const Icon(Icons.arrow_back_ios),
         onPressed: goBack,
       ),
       title: Row(

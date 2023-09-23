@@ -48,16 +48,20 @@ class PickFromCustomerScreen extends StatelessWidget {
                   child: Container(
                       margin: const EdgeInsets.all(16.0),
                       child: ListView.builder(
+                        padding: const EdgeInsets.all(6.0),
                         itemCount: customers.length,
                         itemBuilder: (context, index) {
-                          return PickupCard(
-                            customer: customers[index],
-                            onTap: () => {
-                              context.push(
-                                Routes.pickUp.route,
-                                extra: customers[index],
-                              ),
-                            },
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 7.0),
+                            child: PickupCard(
+                              customer: customers[index],
+                              onTap: () => {
+                                context.push(
+                                  Routes.pickUp.route,
+                                  extra: customers[index],
+                                ),
+                              },
+                            ),
                           );
                         },
                       ))),
