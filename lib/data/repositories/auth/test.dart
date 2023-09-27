@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:washpro/data/models/user.dart';
-import 'package:washpro/data/repositories/user_repository/test.dart';
 
 import 'base.dart';
+
+User? currentUser;
 
 class TestAuthRepository extends AuthRepository {
   final _controller = StreamController<AuthenticationStatus>();
