@@ -17,6 +17,8 @@ import 'package:washpro/presentation/screens/update_bag/screen.dart';
 import 'package:washpro/temp.dart';
 
 enum Routes {
+  empty,
+
   login,
   forgotPassword,
 
@@ -37,26 +39,38 @@ extension RoutesExtension on Routes {
 }
 
 final unauthenticatedRoutes = [
+  Routes.empty.route,
   Routes.login.route,
   Routes.forgotPassword.route,
 ];
 
 final appRouter = GoRouter(
-  initialLocation: Routes.home.route,
+  initialLocation: Routes.empty.route,
   redirect: (BuildContext context, GoRouterState state) {
     if (debugScreen != null) return null;
-    bool isAuthenticated = BlocProvider.of<AuthBloc>(context).state.status ==
-        AuthenticationStatus.authenticated;
+    AuthenticationStatus status =
+        BlocProvider.of<AuthBloc>(context).state.status;
 
     final path = state.fullPath;
 
-    if (!isAuthenticated && !unauthenticatedRoutes.contains(path)) {
+    if (status == AuthenticationStatus.unknown) {
+      return Routes.empty.route;
+    }
+
+    if (status == AuthenticationStatus.unauthenticated &&
+        !unauthenticatedRoutes.contains(path)) {
       return Routes.login.route;
     }
 
     return null;
   },
   routes: [
+    GoRoute(
+      path: Routes.empty.route,
+      builder: (context, state) {
+        return const Center(child: CircularProgressIndicator());
+      },
+    ),
     GoRoute(
       path: Routes.home.route,
       builder: (context, state) => const HomeScreen(),

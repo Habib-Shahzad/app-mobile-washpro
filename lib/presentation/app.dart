@@ -53,12 +53,9 @@ class _MainAppState extends State<MainApp> {
         if (debugScreen != null) {
           appRouter.go(debugScreen!.route);
         } else {
-          bool isAuthenticated =
-              state.status == AuthenticationStatus.authenticated;
-
-          if (isAuthenticated) {
+          if (state.status == AuthenticationStatus.authenticated) {
             appRouter.go(Routes.home.route);
-          } else {
+          } else if (state.status == AuthenticationStatus.unauthenticated) {
             appRouter.go(Routes.login.route);
           }
         }
