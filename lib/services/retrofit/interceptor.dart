@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:washpro/data/models/api/auth/model.dart';
+import 'package:washpro/logger.dart';
 import 'package:washpro/services/preferences.dart';
 import 'package:washpro/services/retrofit/client.dart';
 
@@ -31,6 +32,8 @@ void addAuthInterceptor(Dio dio) {
     },
     onError: (DioException e, handler) async {
       if (e.response?.statusCode == 401) {
+        logger.e('Request failed, Refreshing token');
+
         // If a 401 response is received, refresh the access token
         String newAccessToken = await refreshToken();
 

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:washpro/data/models/api/auth/model.dart';
+import 'package:washpro/data/models/api/getCustomers/model.dart';
+import 'package:washpro/data/models/api/getOrders/model.dart';
 part 'client.g.dart';
 
 class EmptyResponse {
@@ -19,4 +21,10 @@ abstract class RestClient {
 
   @POST("token/verify/")
   Future<HttpResponse> verify(@Body() body);
+
+  @GET("orders/")
+  Future<OrdersResponse> getOrders();
+
+  @GET("customer/")
+  Future<CustomersResponse> getCustomers();
 }
