@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:washpro/business_logic/cubits/customer_screen/cubit.dart';
+import 'package:washpro/data/models/api/bag/model.dart';
+import 'package:washpro/data/models/api/getCustomers/model.dart';
+import 'package:washpro/data/repositories/customer/base.dart';
 import 'package:washpro/presentation/widgets/custom_app_bar.dart';
 import 'package:washpro/routes/routes.dart';
 import 'pickup_card.dart';
@@ -14,59 +19,85 @@ class PickFromCustomerScreen extends StatelessWidget {
       return false;
     }
 
-    final customers = [
-      Customer(
-        number: '#123 | #999',
-        name: 'Franderis Mercedes',
-        address: '269 S 1st Ave, Mount Vernon, NY 11550',
-      ),
-      Customer(
-        number: '#14569',
-        name: 'Frank Pumillo',
-        address: '269 S 1st Ave, Mount Vernon, NY 11550',
-      ),
-    ];
-
     return WillPopScope(
       onWillPop: navigateToHome,
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: CustomAppBar(
-            goBack: navigateToHome,
-            titleTexts: const [
-              'PickUp',
-              'from',
-              'Customer',
-            ],
-          ),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.all(16.0),
-                      child: ListView.builder(
-                        padding: const EdgeInsets.all(6.0),
-                        itemCount: customers.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 7.0),
-                            child: PickupCard(
-                              customer: customers[index],
-                              onTap: () => {
-                                context.push(
-                                  Routes.pickUp.route,
-                                  extra: customers[index],
-                                ),
-                              },
-                            ),
-                          );
-                        },
-                      ))),
-            ],
-          ),
+      child: BlocProvider<CustomerScreenCubit>(
+        create: (context) => CustomerScreenCubit(
+            customerRepository:
+                RepositoryProvider.of<CustomerRepository>(context))
+          ..getCustomers(),
+        child: BlocBuilder<CustomerScreenCubit, CustomerScreenState>(
+          builder: (context, state) {
+            if (state is Loading || state is Initial) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            if (state is Loaded) {
+              CustomersResponse customersResponse = state.customersResponse;
+
+              return Scaffold(
+                appBar: PreferredSize(
+                  preferredSize: const Size.fromHeight(kToolbarHeight),
+                  child: CustomAppBar(
+                    goBack: navigateToHome,
+                    titleTexts: const [
+                      'PickUp',
+                      'from',
+                      'Customer',
+                    ],
+                  ),
+                ),
+                body: Center(
+                  child: Column(
+                    children: [
+                      Expanded(
+                          child: Container(
+                              margin: const EdgeInsets.all(16.0),
+                              child: ListView.builder(
+                                padding: const EdgeInsets.all(6.0),
+                                itemCount: customersResponse.count,
+                                itemBuilder: (context, index) {
+                                  List<Bag> bags =
+                                      customersResponse.results[index].bags ??
+                                          [];
+
+                                  String bagsString = bags.map((e) {
+                                    return e.id;
+                                  }).join(' | ');
+
+                                  PickupCardProps props = PickupCardProps(
+                                      thirdLine: customersResponse
+                                          .results[index].address,
+                                      secondLine:
+                                          customersResponse.results[index].name,
+                                      firstLine: bagsString);
+
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 7.0),
+                                    child: PickupCard(
+                                      customer: props,
+                                      onTap: () => {
+                                        context.push(
+                                          Routes.pickUp.route,
+                                          extra: props,
+                                        ),
+                                      },
+                                    ),
+                                  );
+                                },
+                              ))),
+                    ],
+                  ),
+                ),
+              );
+            }
+
+            return const Center(
+              child: Text('Error'),
+            );
+          },
         ),
       ),
     );

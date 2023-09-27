@@ -16,10 +16,10 @@ class UpdateBagScreen extends StatelessWidget {
       return false;
     }
 
-    Customer customer = Customer(
-      number: '123',
-      name: 'Franderis Mercedes',
-      address: '269 S 1st Ave, Mount Vernon, NY 11550',
+    PickupCardProps customer = PickupCardProps(
+      firstLine: '123',
+      secondLine: 'Franderis Mercedes',
+      thirdLine: '269 S 1st Ave, Mount Vernon, NY 11550',
     );
 
     final formKey = GlobalKey<FormBuilderState>();
@@ -65,10 +65,10 @@ class UpdateBagScreen extends StatelessWidget {
                       ),
                     ),
                     PickupCard(
-                      customer: Customer(
-                        number: customer.number,
-                        name: customer.name,
-                        address: customer.address,
+                      customer: PickupCardProps(
+                        firstLine: customer.firstLine,
+                        secondLine: customer.secondLine,
+                        thirdLine: customer.thirdLine,
                       ),
                     ),
                     const SizedBox(

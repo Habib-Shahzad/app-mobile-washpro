@@ -13,7 +13,7 @@ class ForgotPasswordScreenCubit extends Cubit<ForgotPasswordScreenState> {
       : _authRepository = authRepository,
         super(ForgotPasswordRequestSent());
 
-  Future<void> resendVerificationEmail(String email) async {
+  Future<void> sendForgotPasswordRequest(String email) async {
     emit(ForgotPasswordRequestSending());
     try {
       emit(ForgotPasswordRequestSent());

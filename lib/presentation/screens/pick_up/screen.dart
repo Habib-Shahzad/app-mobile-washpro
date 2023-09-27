@@ -12,7 +12,7 @@ import 'package:washpro/routes/routes.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PickUpScreen extends StatelessWidget {
-  final Customer customer;
+  final PickupCardProps customer;
   const PickUpScreen({super.key, required this.customer});
 
   @override
@@ -120,10 +120,10 @@ class PickUpScreen extends StatelessWidget {
                   ),
                 ),
                 PickupCard(
-                  customer: Customer(
-                    number: customer.number,
-                    name: customer.name,
-                    address: customer.address,
+                  customer: PickupCardProps(
+                    firstLine: customer.firstLine,
+                    secondLine: customer.secondLine,
+                    thirdLine: customer.thirdLine,
                   ),
                 ),
                 const SizedBox(

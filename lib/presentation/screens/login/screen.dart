@@ -31,8 +31,7 @@ class LoginScreen extends StatelessWidget {
               child: BlocConsumer<LoginScreenCubit, LoginScreenState>(
                   listener: ((context, state) => {}),
                   builder: (context, state) {
-                    final loginCubit =
-                        BlocProvider.of<LoginScreenCubit>(context);
+                    final cubit = BlocProvider.of<LoginScreenCubit>(context);
                     final formState = FormBuilder.of(context)!;
 
                     return Scaffold(
@@ -114,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                                                     if (formState
                                                         .saveAndValidate()) {
                                                       logger.i('Form is valid');
-                                                      loginCubit.login(
+                                                      cubit.login(
                                                         username: formState
                                                             .value['username'],
                                                         password: formState

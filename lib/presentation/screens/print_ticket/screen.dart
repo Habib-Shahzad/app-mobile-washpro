@@ -69,20 +69,20 @@ class PrintTicketScreen extends StatelessWidget {
                   ),
                 ),
                 PickupCard(
-                  customer: Customer(
-                    number: "#123",
-                    name: "Wash and Fold",
-                    address: "WF1003",
+                  customer: PickupCardProps(
+                    firstLine: "#123",
+                    secondLine: "Wash and Fold",
+                    thirdLine: "WF1003",
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 PickupCard(
-                  customer: Customer(
-                    number: "#14569",
-                    name: "Wash and Fold",
-                    address: "WF1004",
+                  customer: PickupCardProps(
+                    firstLine: "#14569",
+                    secondLine: "Wash and Fold",
+                    thirdLine: "WF1004",
                   ),
                 ),
               ],

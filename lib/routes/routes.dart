@@ -95,7 +95,7 @@ final appRouter = GoRouter(
               child: Text('No customer selected',
                   style: Theme.of(context).textTheme.bodyLarge));
         }
-        return PickUpScreen(customer: state.extra as Customer);
+        return PickUpScreen(customer: state.extra as PickupCardProps);
       },
     ),
     GoRoute(
