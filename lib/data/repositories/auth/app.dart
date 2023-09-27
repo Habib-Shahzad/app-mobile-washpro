@@ -1,6 +1,10 @@
 import 'dart:async';
-import 'package:washpro/data/models/user.dart';
-import 'package:washpro/temp.dart';
+import 'package:washpro/data/exceptions/auth.dart';
+import 'package:washpro/data/models/api/auth/model.dart';
+import 'package:washpro/logger.dart';
+import 'package:washpro/services/preferences.dart';
+import 'package:washpro/services/retrofit/client.dart';
+import 'package:washpro/singletons.dart';
 
 import 'base.dart';
 
@@ -11,51 +15,64 @@ class AppAuthRepository extends AuthRepository {
   void dispose() => _controller.close();
 
   @override
-  bool isSignedIn() {
-    return currentUser != null;
+  Future<bool> isSignedIn() async {
+    final accessToken =
+        SharedPreferencesService.get(PreferenceKeys.accessToken);
+    final refreshToken =
+        SharedPreferencesService.get(PreferenceKeys.refreshToken);
+
+    if (accessToken != null &&
+        accessToken.isNotEmpty &&
+        refreshToken != null &&
+        refreshToken.isNotEmpty) {
+      try {
+        final client = RestClient(defaultDio);
+
+        final response = await client.verify({
+          'token': accessToken,
+        });
+
+        return response.response.statusCode == 200;
+      } catch (e) {
+        logger.e(e.toString());
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   @override
-  Future<void> signInWithEmailAndPassword(String email, String password) {
-    Future.delayed(const Duration(microseconds: 500), () {
-      currentUser = User(userId: "123", firstName: "John", lastName: password);
+  Future<void> signIn(String username, String password) async {
+    Map<String, String> input = {'username': username, 'password': password};
+    try {
+      final client = RestClient(defaultDio);
+
+      AuthToken auth = await client.signIn(input);
+      SharedPreferencesService.set(PreferenceKeys.accessToken, auth.access);
+      SharedPreferencesService.set(PreferenceKeys.refreshToken, auth.refresh);
       _controller.add(AuthenticationStatus.authenticated);
-    });
-    return Future.value();
-  }
-
-  @override
-  Future<void> signInWithRefreshToken(Uri uri) {
-    throw UnimplementedError();
+    } catch (e) {
+      throw AuthException(e.toString());
+    }
   }
 
   @override
   Future<void> signOut() {
-    Future.delayed(const Duration(microseconds: 500), () {
-      currentUser = null;
-      _controller.add(AuthenticationStatus.unauthenticated);
-    });
+    _controller.add(AuthenticationStatus.unauthenticated);
+    SharedPreferencesService.remove(PreferenceKeys.accessToken);
+    SharedPreferencesService.remove(PreferenceKeys.refreshToken);
     return Future.value();
   }
 
   @override
-  Future<String?> signUpWithEmailAndPassword(String email, String password) {
-    throw UnimplementedError();
-  }
-
-  @override
   Stream<AuthenticationStatus> get status async* {
-    final signedIn = isSignedIn();
+    final signedIn = await isSignedIn();
     if (signedIn) {
       _controller.add(AuthenticationStatus.authenticated);
     } else {
       _controller.add(AuthenticationStatus.unauthenticated);
     }
     yield* _controller.stream;
-  }
-
-  @override
-  Future<bool> userAlreadyExists({required String email}) {
-    throw UnimplementedError();
   }
 }

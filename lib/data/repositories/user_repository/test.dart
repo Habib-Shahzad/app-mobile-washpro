@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:washpro/data/models/user.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:washpro/data/repositories/user_repository/test.dart';
 import 'base.dart';
 
-class AppUserRepository extends UserRepository {
+User? currentUser;
+
+class TestUserRepository extends UserRepository {
   final BehaviorSubject<User> _userStreamController = BehaviorSubject<User>();
 
   @override
@@ -12,6 +13,7 @@ class AppUserRepository extends UserRepository {
 
   @override
   Future<void> getUser() async {
+    Future.delayed(const Duration(seconds: 1), () {});
     if (currentUser != null) _userStreamController.add(currentUser!);
   }
 

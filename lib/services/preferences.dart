@@ -14,4 +14,8 @@ class SharedPreferencesService {
   static String? get(PreferenceKeys key) {
     return getIt<SharedPreferences>().getString(key.toString());
   }
+
+  static void remove(PreferenceKeys key) {
+    getIt<SharedPreferences>().remove(key.toString());
+  }
 }

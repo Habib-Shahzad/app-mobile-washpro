@@ -13,12 +13,12 @@ class LoginScreenCubit extends Cubit<LoginScreenState> {
         super(LoginScreenInitial());
 
   Future<void> login({
-    required String email,
+    required String username,
     required String password,
   }) async {
     emit(LoginScreenLoading());
     try {
-      await _authRepository.signInWithEmailAndPassword(email, password);
+      await _authRepository.signIn(username, password);
       logger.i('User Signed in successfully');
     } on AuthException catch (e) {
       emit(LoginScreenError(errorMessage: e.message));

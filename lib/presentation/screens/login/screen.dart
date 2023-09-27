@@ -18,119 +18,128 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
+
     return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: FormBuilder(
+            key: formKey,
             child: BlocProvider<LoginScreenCubit>(
-          create: (context) => LoginScreenCubit(
-              authRepository: RepositoryProvider.of<AuthRepository>(context)),
-          child: BlocConsumer<LoginScreenCubit, LoginScreenState>(
-              listener: ((context, state) => {}),
-              builder: (context, state) {
-                final loginCubit = BlocProvider.of<LoginScreenCubit>(context);
-                final formState = FormBuilder.of(context)!;
+              create: (context) => LoginScreenCubit(
+                  authRepository:
+                      RepositoryProvider.of<AuthRepository>(context)),
+              child: BlocConsumer<LoginScreenCubit, LoginScreenState>(
+                  listener: ((context, state) => {}),
+                  builder: (context, state) {
+                    final loginCubit =
+                        BlocProvider.of<LoginScreenCubit>(context);
+                    final formState = FormBuilder.of(context)!;
 
-                return Scaffold(
-                  body: Center(
-                      child: SingleChildScrollView(
-                          child: SafeArea(
-                              child: Padding(
-                                  padding: const EdgeInsets.all(28.0),
-                                  child: Center(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center, // Center vertically
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center, // Ce
-                                      children: [
-                                        const Image(
-                                          image: AssetImage('assets/logo.png'),
-                                          width: 200,
-                                          height: 200,
+                    return Scaffold(
+                      body: Center(
+                          child: SingleChildScrollView(
+                              child: SafeArea(
+                                  child: Padding(
+                                      padding: const EdgeInsets.all(28.0),
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .center, // Center vertically
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center, // Ce
+                                          children: [
+                                            const Image(
+                                              image:
+                                                  AssetImage('assets/logo.png'),
+                                              width: 200,
+                                              height: 200,
+                                            ),
+                                            const SizedBox(height: 20),
+                                            Text(
+                                              'Washpro Core',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .copyWith(
+                                                      color: Theme.of(context)
+                                                          .primaryColor),
+                                            ),
+                                            const SizedBox(height: 20),
+                                            CustomFormBuilderTextField(
+                                              name: "username",
+                                              controller: _emailController,
+                                              keyboardType:
+                                                  TextInputType.emailAddress,
+                                              labelText: "User Name",
+                                              prefixIcon: const Icon(
+                                                  Icons.account_circle),
+                                              validators: FormBuilderValidators
+                                                  .compose([
+                                                FormBuilderValidators
+                                                    .required(),
+                                              ]),
+                                            ),
+                                            const SizedBox(height: 16 / 2),
+                                            CustomFormBuilderTextField(
+                                              name: "password",
+                                              controller: _passwordController,
+                                              keyboardType:
+                                                  TextInputType.visiblePassword,
+                                              labelText: "Password",
+                                              isPassword: true,
+                                              prefixIcon:
+                                                  const Icon(Icons.lock),
+                                              validators: FormBuilderValidators
+                                                  .compose([
+                                                FormBuilderValidators
+                                                    .required(),
+                                                FormBuilderValidators.minLength(
+                                                    8),
+                                              ]),
+                                            ),
+                                            const SizedBox(
+                                              height: 28,
+                                            ),
+                                            SizedBox(
+                                              width: double.maxFinite,
+                                              height: 48,
+                                              child: CustomElevatedButton(
+                                                  buttonText: 'LOGIN',
+                                                  isLoading: state
+                                                      is LoginScreenLoading,
+                                                  onPressed: () async {
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                    if (formState
+                                                        .saveAndValidate()) {
+                                                      logger.i('Form is valid');
+                                                      loginCubit.login(
+                                                        username: formState
+                                                            .value['username'],
+                                                        password: formState
+                                                            .value['password'],
+                                                      );
+                                                    }
+                                                  }),
+                                            ),
+                                            const SizedBox(
+                                              height: 28,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                context.push(Routes
+                                                    .forgotPassword.route);
+                                              },
+                                              child: const Text(
+                                                "I forgot my password",
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        const SizedBox(height: 20),
-                                        Text(
-                                          'Washpro Core',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge!
-                                              .copyWith(
-                                                  color: Theme.of(context)
-                                                      .primaryColor),
-                                        ),
-                                        const SizedBox(height: 20),
-                                        CustomFormBuilderTextField(
-                                          name: "login_email",
-                                          controller: _emailController,
-                                          keyboardType:
-                                              TextInputType.emailAddress,
-                                          labelText: "Email Address",
-                                          prefixIcon:
-                                              const Icon(Icons.alternate_email),
-                                          validators:
-                                              FormBuilderValidators.compose([
-                                            // FormBuilderValidators.required(),
-                                            // FormBuilderValidators.email(),
-                                          ]),
-                                        ),
-                                        const SizedBox(height: 16 / 2),
-                                        CustomFormBuilderTextField(
-                                          name: "login_password",
-                                          controller: _passwordController,
-                                          keyboardType:
-                                              TextInputType.visiblePassword,
-                                          labelText: "Password",
-                                          isPassword: true,
-                                          prefixIcon: const Icon(Icons.lock),
-                                          validators:
-                                              FormBuilderValidators.compose([
-                                            // FormBuilderValidators.required(),
-                                            // FormBuilderValidators.minLength(8),
-                                          ]),
-                                        ),
-                                        const SizedBox(
-                                          height: 28,
-                                        ),
-                                        SizedBox(
-                                          width: double.maxFinite,
-                                          height: 48,
-                                          child: CustomElevatedButton(
-                                              buttonText: 'LOGIN',
-                                              isLoading:
-                                                  state is LoginScreenLoading,
-                                              onPressed: () async {
-                                                FocusManager
-                                                    .instance.primaryFocus
-                                                    ?.unfocus();
-                                                if (formState
-                                                    .saveAndValidate()) {
-                                                  logger.i('Form is valid');
-                                                  loginCubit.login(
-                                                    email: formState
-                                                        .value['login_email'],
-                                                    password: formState.value[
-                                                        'login_password'],
-                                                  );
-                                                }
-                                              }),
-                                        ),
-                                        const SizedBox(
-                                          height: 28,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            context.push(
-                                                Routes.forgotPassword.route);
-                                          },
-                                          child: const Text(
-                                            "I forgot my password",
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ))))),
-                );
-              }),
-        )));
+                                      ))))),
+                    );
+                  }),
+            )));
   }
 }

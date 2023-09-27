@@ -5,7 +5,6 @@ import 'package:washpro/business_logic/blocs/auth/bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:washpro/presentation/widgets/custom_card.dart';
 import 'package:washpro/routes/routes.dart';
-import 'package:washpro/temp.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -135,7 +134,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 1),
                     Text(
-                      currentUser?.firstName ?? " Valet,",
+                      " Valet,",
                       style: secondaryTitleMedium,
                     ),
                   ],

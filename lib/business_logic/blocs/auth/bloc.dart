@@ -45,10 +45,8 @@ class AuthBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
       case AuthenticationStatus.unauthenticated:
         return emit(const AuthenticationState.unauthenticated());
       case AuthenticationStatus.authenticated:
-        await _tryGetUser();
-        await emit.forEach(_userRepository.loggedInUser,
-            onData: (User user) => AuthenticationState.authenticated(user));
-        return;
+        return emit(const AuthenticationState.authenticated(User.empty));
+
       default:
         return emit(const AuthenticationState.unknown());
     }
