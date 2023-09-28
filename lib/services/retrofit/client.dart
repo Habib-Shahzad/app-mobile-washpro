@@ -27,4 +27,7 @@ abstract class RestClient {
 
   @GET("customer/")
   Future<CustomersResponse> getCustomers();
+
+  @GET("customer/{id}/orders/")
+  Future<List<Order>> getCustomerOrders(@Path("id") String id);
 }

@@ -6,7 +6,6 @@ import 'package:washpro/data/repositories/auth/base.dart';
 import 'package:washpro/presentation/screens/forgot_password/screen.dart';
 import 'package:washpro/presentation/screens/home/screen.dart';
 import 'package:washpro/presentation/screens/login/screen.dart';
-import 'package:washpro/presentation/screens/pick_from_customer/pickup_card.dart';
 import 'package:washpro/presentation/screens/pick_from_customer/screen.dart';
 import 'package:washpro/presentation/screens/pick_from_washpro/screen.dart';
 import 'package:washpro/presentation/screens/pick_up/screen.dart';
@@ -95,7 +94,7 @@ final appRouter = GoRouter(
               child: Text('No customer selected',
                   style: Theme.of(context).textTheme.bodyLarge));
         }
-        return PickUpScreen(customer: state.extra as PickupCardProps);
+        return PickUpScreen(props: state.extra as PickUpScreenProps);
       },
     ),
     GoRoute(

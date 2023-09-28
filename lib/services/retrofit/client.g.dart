@@ -107,7 +107,7 @@ class _RestClient implements RestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<OrdersResponse>(Options(
       method: 'GET',
@@ -134,7 +134,7 @@ class _RestClient implements RestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<CustomersResponse>(Options(
       method: 'GET',
@@ -153,6 +153,35 @@ class _RestClient implements RestClient {
               baseUrl,
             ))));
     final value = CustomersResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<Order>> getCustomerOrders(String id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Order>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'customer/${id}/orders/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => Order.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

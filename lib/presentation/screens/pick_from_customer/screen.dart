@@ -5,12 +5,17 @@ import 'package:washpro/business_logic/cubits/customer_screen/cubit.dart';
 import 'package:washpro/data/models/api/bag/model.dart';
 import 'package:washpro/data/models/api/getCustomers/model.dart';
 import 'package:washpro/data/repositories/customer/base.dart';
+import 'package:washpro/presentation/screens/pick_up/screen.dart';
 import 'package:washpro/presentation/widgets/custom_app_bar.dart';
 import 'package:washpro/routes/routes.dart';
 import 'pickup_card.dart';
 
 class PickFromCustomerScreen extends StatelessWidget {
   const PickFromCustomerScreen({super.key});
+
+  joinBags(List<Bag> bags) {
+    return bags.map((e) => e.id.toString()).join(' | ');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,20 +64,14 @@ class PickFromCustomerScreen extends StatelessWidget {
                                 padding: const EdgeInsets.all(6.0),
                                 itemCount: customersResponse.count,
                                 itemBuilder: (context, index) {
-                                  List<Bag> bags =
-                                      customersResponse.results[index].bags ??
-                                          [];
-
-                                  String bagsString = bags.map((e) {
-                                    return e.id;
-                                  }).join(' | ');
-
                                   PickupCardProps props = PickupCardProps(
                                       thirdLine: customersResponse
                                           .results[index].address,
                                       secondLine:
                                           customersResponse.results[index].name,
-                                      firstLine: bagsString);
+                                      firstLine: joinBags(customersResponse
+                                              .results[index].bags ??
+                                          []));
 
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 7.0),
@@ -81,7 +80,10 @@ class PickFromCustomerScreen extends StatelessWidget {
                                       onTap: () => {
                                         context.push(
                                           Routes.pickUp.route,
-                                          extra: props,
+                                          extra: PickUpScreenProps(
+                                            customer: customersResponse
+                                                .results[index],
+                                          ),
                                         ),
                                       },
                                     ),
