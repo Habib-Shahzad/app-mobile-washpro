@@ -4,6 +4,8 @@ import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:washpro/business_logic/blocs/auth/bloc.dart';
 import 'package:washpro/data/repositories/auth/app.dart';
 import 'package:washpro/data/repositories/auth/base.dart';
+import 'package:washpro/data/repositories/bag/app.dart';
+import 'package:washpro/data/repositories/bag/base.dart';
 import 'package:washpro/data/repositories/customer/app.dart';
 import 'package:washpro/data/repositories/customer/base.dart';
 import 'package:washpro/routes/routes.dart';
@@ -14,6 +16,7 @@ class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
   final _authRepository = AppAuthRepository();
   final _customerRepository = AppCustomerRepository();
+  final _bagRepository = AppBagRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,9 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider<CustomerRepository>(
           create: (context) => _customerRepository,
+        ),
+        RepositoryProvider<BagRepository>(
+          create: (context) => _bagRepository,
         ),
       ],
       child: MultiBlocProvider(

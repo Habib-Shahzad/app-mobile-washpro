@@ -125,7 +125,6 @@ class PickUpScreen extends StatelessWidget {
                 }
               }
 
-
               final List<DataRow> dataRows = rows.map((BagDetailRow row) {
                 return getDataRow(row);
               }).toList();
@@ -148,8 +147,8 @@ class PickUpScreen extends StatelessWidget {
                                         Theme.of(context).colorScheme.primary),
                           ),
                         ),
-                        PickupCard(
-                          customer: PickupCardProps(
+                        DefaultCard(
+                          props: DefaultCardProps(
                             firstLine: customer.name,
                             secondLine: customer.address,
                             thirdLine: customer.name,

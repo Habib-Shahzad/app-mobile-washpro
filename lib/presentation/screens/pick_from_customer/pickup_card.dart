@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-class PickupCardProps {
+class DefaultCardProps {
   final String firstLine;
   final String secondLine;
   final String thirdLine;
 
-  PickupCardProps(
+  DefaultCardProps(
       {required this.firstLine,
       required this.secondLine,
       required this.thirdLine});
 }
 
-class PickupCard extends StatelessWidget {
-  final PickupCardProps customer;
+class DefaultCard extends StatelessWidget {
+  final DefaultCardProps props;
   final void Function()? onTap;
 
-  const PickupCard({super.key, required this.customer, this.onTap});
+  const DefaultCard({super.key, required this.props, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class PickupCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      customer.firstLine,
+                      props.firstLine,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
@@ -46,14 +46,14 @@ class PickupCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4.0),
                 Text(
-                  customer.secondLine,
+                  props.secondLine,
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                       ),
                 ),
                 const SizedBox(height: 4.0),
                 Text(
-                  customer.thirdLine,
+                  props.thirdLine,
                   style: const TextStyle(
                     fontSize: 16.0,
                   ),

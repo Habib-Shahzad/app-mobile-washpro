@@ -64,7 +64,7 @@ class PickFromCustomerScreen extends StatelessWidget {
                                 padding: const EdgeInsets.all(6.0),
                                 itemCount: customersResponse.count,
                                 itemBuilder: (context, index) {
-                                  PickupCardProps props = PickupCardProps(
+                                  DefaultCardProps props = DefaultCardProps(
                                       thirdLine: customersResponse
                                           .results[index].address,
                                       secondLine:
@@ -75,8 +75,8 @@ class PickFromCustomerScreen extends StatelessWidget {
 
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 7.0),
-                                    child: PickupCard(
-                                      customer: props,
+                                    child: DefaultCard(
+                                      props: props,
                                       onTap: () => {
                                         context.push(
                                           Routes.pickUp.route,

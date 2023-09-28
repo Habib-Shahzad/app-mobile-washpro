@@ -16,7 +16,7 @@ class UpdateBagScreen extends StatelessWidget {
       return false;
     }
 
-    PickupCardProps customer = PickupCardProps(
+    DefaultCardProps customer = DefaultCardProps(
       firstLine: '123',
       secondLine: 'Franderis Mercedes',
       thirdLine: '269 S 1st Ave, Mount Vernon, NY 11550',
@@ -64,8 +64,8 @@ class UpdateBagScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.primary),
                       ),
                     ),
-                    PickupCard(
-                      customer: PickupCardProps(
+                    DefaultCard(
+                      props: DefaultCardProps(
                         firstLine: customer.firstLine,
                         secondLine: customer.secondLine,
                         thirdLine: customer.thirdLine,

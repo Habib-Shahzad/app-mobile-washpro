@@ -26,8 +26,7 @@ class AppAuthRepository extends AuthRepository {
         refreshToken != null &&
         refreshToken.isNotEmpty) {
       try {
-        final client = RestClient(defaultDio);
-
+        final client = getIt<RestClient>();
         final response = await client.verify({
           'token': accessToken,
         });
@@ -46,8 +45,7 @@ class AppAuthRepository extends AuthRepository {
   Future<void> signIn(String username, String password) async {
     Map<String, String> input = {'username': username, 'password': password};
     try {
-      final client = RestClient(defaultDio);
-
+      final client = getIt<RestClient>();
       AuthToken auth = await client.signIn(input);
       SharedPreferencesService.set(PreferenceKeys.accessToken, auth.access);
       SharedPreferencesService.set(PreferenceKeys.refreshToken, auth.refresh);

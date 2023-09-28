@@ -1,9 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:washpro/data/models/api/getCustomers/model.dart';
 import 'package:washpro/data/models/api/getOrders/model.dart';
 import 'package:washpro/data/repositories/customer/base.dart';
 import 'package:washpro/services/retrofit/client.dart';
-import 'package:washpro/services/retrofit/interceptor.dart';
+import 'package:washpro/singletons.dart';
 
 class AppCustomerRepository extends CustomerRepository {
   @override
@@ -11,18 +10,14 @@ class AppCustomerRepository extends CustomerRepository {
 
   @override
   Future<CustomersResponse> getCustomers() async {
-    final dio = Dio();
-    addAuthInterceptor(dio);
-    final client = RestClient(dio);
+    final client = getIt<AuthRestClient>();
     final response = await client.getCustomers();
     return response;
   }
 
   @override
   Future<List<Order>> getCustomerOrders(String id) async {
-    final dio = Dio();
-    addAuthInterceptor(dio);
-    final client = RestClient(dio);
+    final client = getIt<AuthRestClient>();
     final response = await client.getCustomerOrders(id);
     return response;
   }

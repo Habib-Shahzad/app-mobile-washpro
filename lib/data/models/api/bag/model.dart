@@ -4,6 +4,31 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'model.g.dart';
 
+class BagStatus {
+  static const String vacant = "vacant";
+  static const String pickedUp = "picked_up";
+  static const String dropOff = "drop_off";
+  static const String processing = "processing";
+  static const String ready = "ready";
+  static const String dispatched = "dispatched";
+  static const String delivered = "delivered";
+}
+
+String defaultLabeler(String x, {String splitter = '_'}) {
+  // Split the input string by the splitter
+  List<String> words = x.split(splitter);
+
+  // Capitalize the first letter of each word and join them with a space
+  String result = words.map((word) {
+    if (word.isEmpty) {
+      return '';
+    }
+    return word[0].toUpperCase() + word.substring(1);
+  }).join(' ');
+
+  return result;
+}
+
 @JsonSerializable()
 class Bag {
   final int id;

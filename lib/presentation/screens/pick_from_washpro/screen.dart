@@ -45,8 +45,8 @@ class PickFromWashProScreen extends StatelessWidget {
                         .copyWith(color: Theme.of(context).colorScheme.primary),
                   ),
                 ),
-                PickupCard(
-                  customer: PickupCardProps(
+                DefaultCard(
+                  props: DefaultCardProps(
                     firstLine: "#123",
                     secondLine: "Wash and Fold",
                     thirdLine: "WF1003",
@@ -55,8 +55,8 @@ class PickFromWashProScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                PickupCard(
-                  customer: PickupCardProps(
+                DefaultCard(
+                  props: DefaultCardProps(
                     firstLine: "#14569",
                     secondLine: "Wash and Fold",
                     thirdLine: "WF1004",

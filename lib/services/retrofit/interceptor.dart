@@ -3,13 +3,12 @@ import 'package:washpro/data/models/api/auth/model.dart';
 import 'package:washpro/logger.dart';
 import 'package:washpro/services/preferences.dart';
 import 'package:washpro/services/retrofit/client.dart';
+import 'package:washpro/singletons.dart';
 
 Future<String> refreshToken() async {
   String? refreshToken =
       SharedPreferencesService.get(PreferenceKeys.refreshToken);
-
-  final client = RestClient(Dio(BaseOptions(contentType: "application/json")));
-
+  final client = getIt<RestClient>();
   AuthToken auth = await client.refresh({
     'refresh': refreshToken,
   });
@@ -46,4 +45,10 @@ void addAuthInterceptor(Dio dio) {
       return handler.next(e);
     },
   ));
+}
+
+AuthRestClient getAuthClient() {
+  final dio = Dio(BaseOptions(contentType: "application/json"));
+  addAuthInterceptor(dio);
+  return AuthRestClient(dio);
 }

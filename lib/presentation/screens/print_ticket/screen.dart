@@ -68,8 +68,8 @@ class PrintTicketScreen extends StatelessWidget {
                         .copyWith(color: Theme.of(context).colorScheme.primary),
                   ),
                 ),
-                PickupCard(
-                  customer: PickupCardProps(
+                DefaultCard(
+                  props: DefaultCardProps(
                     firstLine: "#123",
                     secondLine: "Wash and Fold",
                     thirdLine: "WF1003",
@@ -78,8 +78,8 @@ class PrintTicketScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                PickupCard(
-                  customer: PickupCardProps(
+                DefaultCard(
+                  props: DefaultCardProps(
                     firstLine: "#14569",
                     secondLine: "Wash and Fold",
                     thirdLine: "WF1004",
