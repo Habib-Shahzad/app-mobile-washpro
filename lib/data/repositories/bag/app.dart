@@ -9,8 +9,9 @@ class AppBagRepository extends BagRepository {
 
   @override
   Future<List<Bag>> getBagsByStatus(String status) async {
-    final client = getIt<AuthRestClient>();
-    final response = await client.getBagsByStatus(status);
-    return response;
+    // final client = getIt<AuthRestClient>();
+    // final response = await client.getBagsByStatus(status);
+    // return response;
+    return [];
   }
 }

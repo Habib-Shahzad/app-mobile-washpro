@@ -63,17 +63,14 @@ class DropOffScreen extends StatelessWidget {
                           alignment: Alignment.center,
                           child: GestureDetector(
                             onTap: () async {
-                              String value = await context
+                              String scannedValue = await context
                                   .push(Routes.barcodeScanner.route) as String;
 
-                              // ignore: use_build_context_synchronously
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text(value),
-                                    );
-                                  });
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Scanned Value: $scannedValue'),
+                                ),
+                              );
                             },
                             child: Text(
                               'Tap to Scan',

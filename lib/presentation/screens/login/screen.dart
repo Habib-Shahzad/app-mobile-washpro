@@ -74,8 +74,8 @@ class LoginScreen extends StatelessWidget {
                                                   Icons.account_circle),
                                               validators: FormBuilderValidators
                                                   .compose([
-                                                FormBuilderValidators
-                                                    .required(),
+                                                // FormBuilderValidators
+                                                //     .required(),
                                               ]),
                                             ),
                                             const SizedBox(height: 16 / 2),
@@ -90,10 +90,10 @@ class LoginScreen extends StatelessWidget {
                                                   const Icon(Icons.lock),
                                               validators: FormBuilderValidators
                                                   .compose([
-                                                FormBuilderValidators
-                                                    .required(),
-                                                FormBuilderValidators.minLength(
-                                                    8),
+                                                // FormBuilderValidators
+                                                //     .required(),
+                                                // FormBuilderValidators.minLength(
+                                                //     8),
                                               ]),
                                             ),
                                             const SizedBox(

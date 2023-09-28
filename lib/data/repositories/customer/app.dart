@@ -10,15 +10,19 @@ class AppCustomerRepository extends CustomerRepository {
 
   @override
   Future<CustomersResponse> getCustomers() async {
-    final client = getIt<AuthRestClient>();
-    final response = await client.getCustomers();
-    return response;
+    // final client = getIt<AuthRestClient>();
+    // final response = await client.getCustomers();
+    // return response;
+
+    return CustomersResponse(count: 0, results: []);
   }
 
   @override
   Future<List<Order>> getCustomerOrders(String id) async {
-    final client = getIt<AuthRestClient>();
-    final response = await client.getCustomerOrders(id);
-    return response;
+    // final client = getIt<AuthRestClient>();
+    // final response = await client.getCustomerOrders(id);
+    // return response;
+
+    return [];
   }
 }

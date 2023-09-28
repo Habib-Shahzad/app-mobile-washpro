@@ -4,6 +4,7 @@ import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:washpro/business_logic/blocs/auth/bloc.dart';
 import 'package:washpro/data/repositories/auth/app.dart';
 import 'package:washpro/data/repositories/auth/base.dart';
+import 'package:washpro/data/repositories/auth/test.dart';
 import 'package:washpro/data/repositories/bag/app.dart';
 import 'package:washpro/data/repositories/bag/base.dart';
 import 'package:washpro/data/repositories/customer/app.dart';
@@ -14,7 +15,7 @@ import 'package:washpro/temp.dart';
 
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
-  final _authRepository = AppAuthRepository();
+  final _authRepository = TestAuthRepository();
   final _customerRepository = AppCustomerRepository();
   final _bagRepository = AppBagRepository();
 
