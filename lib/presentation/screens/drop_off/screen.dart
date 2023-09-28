@@ -61,14 +61,30 @@ class DropOffScreen extends StatelessWidget {
                         ),
                         Align(
                           alignment: Alignment.center,
-                          child: Text(
-                            'Tap to Scan',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
+                          child: GestureDetector(
+                            onTap: () async {
+                              String value = await context
+                                  .push(Routes.barcodeScanner.route) as String;
+
+                              // ignore: use_build_context_synchronously
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text(value),
+                                    );
+                                  });
+                            },
+                            child: Text(
+                              'Tap to Scan',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
+                            ),
                           ),
                         ),
                         const SizedBox(

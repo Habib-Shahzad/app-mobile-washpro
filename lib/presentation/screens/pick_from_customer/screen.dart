@@ -26,35 +26,35 @@ class PickFromCustomerScreen extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: navigateToHome,
-      child: BlocProvider<CustomerScreenCubit>(
-        create: (context) => CustomerScreenCubit(
-            customerRepository:
-                RepositoryProvider.of<CustomerRepository>(context))
-          ..getCustomers(),
-        child: BlocBuilder<CustomerScreenCubit, CustomerScreenState>(
-          builder: (context, state) {
-            if (state is Loading || state is Initial) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: CustomAppBar(
+            goBack: navigateToHome,
+            titleTexts: const [
+              'PickUp',
+              'from',
+              'Customer',
+            ],
+          ),
+        ),
+        body: BlocProvider(
+          create: (context) => CustomerScreenCubit(
+              customerRepository:
+                  RepositoryProvider.of<CustomerRepository>(context))
+            ..getCustomers(),
+          child: BlocBuilder<CustomerScreenCubit, CustomerScreenState>(
+            builder: (context, state) {
+              if (state is Loading || state is Initial) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
 
-            if (state is Loaded) {
-              CustomersResponse customersResponse = state.customersResponse;
+              if (state is Loaded) {
+                CustomersResponse customersResponse = state.customersResponse;
 
-              return Scaffold(
-                appBar: PreferredSize(
-                  preferredSize: const Size.fromHeight(kToolbarHeight),
-                  child: CustomAppBar(
-                    goBack: navigateToHome,
-                    titleTexts: const [
-                      'PickUp',
-                      'from',
-                      'Customer',
-                    ],
-                  ),
-                ),
-                body: Center(
+                return Center(
                   child: Column(
                     children: [
                       Expanded(
@@ -92,14 +92,12 @@ class PickFromCustomerScreen extends StatelessWidget {
                               ))),
                     ],
                   ),
-                ),
-              );
-            }
+                );
+              }
 
-            return const Center(
-              child: Text('Error'),
-            );
-          },
+              return const SizedBox.shrink();
+            },
+          ),
         ),
       ),
     );

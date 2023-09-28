@@ -11,6 +11,8 @@ Future<void> setupSingletons() async {
   getIt.registerSingletonAsync<SharedPreferences>(
       () => SharedPreferences.getInstance());
 
+  await getIt.isReady<SharedPreferences>();
+
   getIt.registerSingleton<AuthRestClient>(getAuthClient());
   getIt.registerSingleton<RestClient>(RestClient(defaultDio));
 }

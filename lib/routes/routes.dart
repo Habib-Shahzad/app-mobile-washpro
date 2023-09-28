@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:washpro/business_logic/blocs/auth/bloc.dart';
 import 'package:washpro/data/repositories/auth/base.dart';
+import 'package:washpro/presentation/screens/barcode_scanner/screen.dart';
 import 'package:washpro/presentation/screens/forgot_password/screen.dart';
 import 'package:washpro/presentation/screens/home/screen.dart';
 import 'package:washpro/presentation/screens/login/screen.dart';
@@ -20,6 +21,8 @@ enum Routes {
 
   login,
   forgotPassword,
+
+  barcodeScanner,
 
   home,
   pickUpFromCustomer,
@@ -125,6 +128,12 @@ final appRouter = GoRouter(
       path: Routes.pickUpFromWashPro.route,
       builder: (context, state) {
         return const PickFromWashProScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.barcodeScanner.route,
+      builder: (context, state) {
+        return BarcodeScannerScreen();
       },
     ),
   ],
