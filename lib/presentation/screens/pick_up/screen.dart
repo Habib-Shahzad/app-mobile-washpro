@@ -38,17 +38,29 @@ class PickUpScreen extends StatelessWidget {
           text,
           style: style,
         ),
+        numeric: false,
+      );
+    }
+
+    DataCell getDataCell(String text) {
+      return DataCell(
+        Center(
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+          ),
+        ),
       );
     }
 
     DataRow getDataRow(BagDetailRow bagDetail) {
       return DataRow(
         cells: <DataCell>[
-          DataCell(Text(bagDetail.orderNumber)),
-          DataCell(Text(bagDetail.serviceType)),
-          DataCell(Text(bagDetail.expected)),
-          DataCell(Text(bagDetail.actual)),
-          DataCell(Text(bagDetail.variance)),
+          getDataCell(bagDetail.orderNumber),
+          getDataCell(defaultLabeler(bagDetail.serviceType)),
+          getDataCell(bagDetail.expected),
+          getDataCell(bagDetail.actual),
+          getDataCell(bagDetail.variance),
         ],
       );
     }
@@ -236,10 +248,17 @@ class PickUpScreen extends StatelessWidget {
                             child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: DataTable(
+                                  border: TableBorder(
+                                    horizontalInside: BorderSide(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      width: 0.7,
+                                    ),
+                                  ),
                                   columnSpacing: 10.0,
                                   columns: <DataColumn>[
                                     getDataColumn('Order#'),
-                                    getDataColumn('ServiceType'),
+                                    getDataColumn('Service Type'),
                                     getDataColumn('Expected'),
                                     getDataColumn('Actual'),
                                     getDataColumn('Variance'),

@@ -23,6 +23,10 @@ abstract class AuthRestClient {
 
   @GET("bag/bags-by-status/")
   Future<List<Bag>> getBagsByStatus(@Query("status") String status);
+
+  @GET("orders/{orderID}/change-bag-status/")
+  Future<HttpResponse> updateBagStatus(@Path("orderID") int orderID,
+      @Query("bag_id") String bagID, @Query("bag_status") String bagStatus);
 }
 
 @RestApi(baseUrl: baseUrl)

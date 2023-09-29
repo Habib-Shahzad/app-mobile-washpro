@@ -62,19 +62,6 @@ class DropOffScreen extends StatelessWidget {
                         Align(
                           alignment: Alignment.center,
                           child: GestureDetector(
-                            onTap: () async {
-                              String value = await context
-                                  .push(Routes.barcodeScanner.route) as String;
-
-                              // ignore: use_build_context_synchronously
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text(value),
-                                    );
-                                  });
-                            },
                             child: Text(
                               'Tap to Scan',
                               style: Theme.of(context)
@@ -95,6 +82,16 @@ class DropOffScreen extends StatelessWidget {
                             itemCount: propList.length,
                             itemBuilder: (context, index) {
                               return DefaultCard(
+                                onTap: () async {
+                                  String? value = await context
+                                      .push(Routes.barcodeScanner.route);
+
+                                  if (context.mounted && value != null) {
+                                    BlocProvider.of<DropOffScreenCubit>(context)
+                                        .dropOffBag(
+                                            state.bagList[index], value);
+                                  }
+                                },
                                 props: propList[index],
                               );
                             },
