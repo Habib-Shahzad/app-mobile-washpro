@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:washpro/business_logic/cubits/dropoff_screen/cubit.dart';
+import 'package:washpro/business_logic/blocs/bag/bloc.dart';
+
 import 'package:washpro/data/models/api/bag/model.dart';
 import 'package:washpro/data/repositories/bag/base.dart';
 import 'package:washpro/presentation/screens/pick_from_customer/pickup_card.dart';
@@ -32,20 +33,54 @@ class DropOffScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: BlocProvider<DropOffScreenCubit>(
-          create: (context) => DropOffScreenCubit(
-              bagRepository: RepositoryProvider.of<BagRepository>(context))
-            ..getPickedUpBags(),
-          child: BlocBuilder<DropOffScreenCubit, DropOffScreenState>(
-            builder: (context, state) {
-              if (state is Loading || state is Initial) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+        body: BlocProvider<BagBloc>(
+          create: (context) =>
+              BagBloc(repository: RepositoryProvider.of<BagRepository>(context))
+                ..add(const LoadBags(status: BagStatus.pickedUp)),
+          child: BlocListener<BagBloc, BagState>(
+            listener: (context, state) {
+              if (state.screenState == ScreenState.loaded) {
+                if (state.scanStatus == ScanStatus.matched) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Scan matched'),
+                    ),
+                  );
+                }
+
+                if (state.scanStatus == ScanStatus.invalid) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Scan mismatched'),
+                    ),
+                  );
+                }
+              } else if (state.screenState == ScreenState.error &&
+                  state.errorMessage != null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.errorMessage!),
+                  ),
                 );
               }
+            },
+            child: BlocBuilder<BagBloc, BagState>(
+              builder: (context, state) {
+                if (state.screenState == ScreenState.loading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
 
-              if (state is Loaded) {
-                List<DefaultCardProps> propList = state.bagList
+                if (state.bags == null || state.bags!.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'No bags found',
+                    ),
+                  );
+                }
+
+                List<DefaultCardProps> propList = state.bags!
                     .map((Bag e) => DefaultCardProps(
                           firstLine: e.id.toString(),
                           secondLine: defaultLabeler(e.bag_type),
@@ -87,9 +122,13 @@ class DropOffScreen extends StatelessWidget {
                                       .push(Routes.barcodeScanner.route);
 
                                   if (context.mounted && value != null) {
-                                    BlocProvider.of<DropOffScreenCubit>(context)
-                                        .dropOffBag(
-                                            state.bagList[index], value);
+                                    BlocProvider.of<BagBloc>(context).add(
+                                      BagScanned(
+                                        bag: state.bags![index],
+                                        scanResult: value,
+                                        updatedStatus: BagStatus.dropOff,
+                                      ),
+                                    );
                                   }
                                 },
                                 props: propList[index],
@@ -99,10 +138,8 @@ class DropOffScreen extends StatelessWidget {
                         ),
                       ],
                     ));
-              }
-
-              return const SizedBox.shrink();
-            },
+              },
+            ),
           ),
         ),
       ),
