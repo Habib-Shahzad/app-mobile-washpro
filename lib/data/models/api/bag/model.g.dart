@@ -12,6 +12,7 @@ Bag _$BagFromJson(Map<String, dynamic> json) => Bag(
       created_at: json['created_at'] as String,
       updated_at: json['updated_at'] as String,
       deleted_at: json['deleted_at'] as String?,
+      order_id: json['order_id'] as int?,
       bag_id: json['bag_id'] as String,
       bag_type: json['bag_type'] as String,
       customer: json['customer'] as int,
@@ -19,6 +20,7 @@ Bag _$BagFromJson(Map<String, dynamic> json) => Bag(
 
 Map<String, dynamic> _$BagToJson(Bag instance) => <String, dynamic>{
       'id': instance.id,
+      'order_id': instance.order_id,
       'status': instance.status,
       'created_at': instance.created_at,
       'updated_at': instance.updated_at,

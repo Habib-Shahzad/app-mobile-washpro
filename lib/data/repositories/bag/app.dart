@@ -16,8 +16,12 @@ class AppBagRepository extends BagRepository {
 
   @override
   Future<void> updateBagStatus(Bag bag, String status) async {
+    if (bag.order_id == null) {
+      throw Exception("Could not update Bag");
+    }
     final client = getIt<AuthRestClient>();
-    final response = await client.updateBagStatus(bag.id, bag.bag_id, status);
+    final response =
+        await client.updateBagStatus(bag.order_id!, bag.bag_id, status);
     if (response.response.statusCode != 200) {
       throw Exception("Could not update Bag");
     }

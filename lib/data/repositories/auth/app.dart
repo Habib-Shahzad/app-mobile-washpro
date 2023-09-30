@@ -51,7 +51,7 @@ class AppAuthRepository extends AuthRepository {
       SharedPreferencesService.set(PreferenceKeys.refreshToken, auth.refresh);
       _controller.add(AuthenticationStatus.authenticated);
     } catch (e) {
-      throw AuthException(e.toString());
+      throw AuthException("Invalid username or password");
     }
   }
 

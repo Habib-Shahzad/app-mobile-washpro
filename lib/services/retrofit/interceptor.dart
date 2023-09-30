@@ -52,3 +52,6 @@ AuthRestClient getAuthClient() {
   addAuthInterceptor(dio);
   return AuthRestClient(dio);
 }
+
+
+

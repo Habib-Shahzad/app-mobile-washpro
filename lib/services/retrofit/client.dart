@@ -6,7 +6,7 @@ import 'package:washpro/data/models/api/getCustomers/model.dart';
 import 'package:washpro/data/models/api/getOrders/model.dart';
 part 'client.g.dart';
 
-const baseUrl = "http://192.168.10.3:8080/api/";
+const baseUrl = "http://192.168.100.47:8080/api/";
 
 @RestApi(baseUrl: baseUrl)
 abstract class AuthRestClient {

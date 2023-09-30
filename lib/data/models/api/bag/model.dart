@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:washpro/data/models/scan_result.dart';
 
 part 'model.g.dart';
 
@@ -32,6 +33,7 @@ String defaultLabeler(String x, {String splitter = '_'}) {
 @JsonSerializable()
 class Bag {
   final int id;
+  final int? order_id;
   final String status;
   final String created_at;
   final String updated_at;
@@ -46,10 +48,20 @@ class Bag {
     required this.created_at,
     required this.updated_at,
     this.deleted_at,
+    this.order_id,
     required this.bag_id,
     required this.bag_type,
     required this.customer,
   });
+
+  void matchScan(String scanResult) {
+    ScanResult expected = ScanResult.fromBag(this);
+    ScanResult scanned = ScanResult.fromString(scanResult);
+
+    if (expected != scanned) {
+      throw Exception('Scan result does not match bag');
+    }
+  }
 
   factory Bag.fromJson(Map<String, dynamic> json) => _$BagFromJson(json);
 

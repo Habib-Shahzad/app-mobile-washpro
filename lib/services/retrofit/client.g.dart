@@ -13,7 +13,7 @@ class _AuthRestClient implements AuthRestClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.10.3:8080/api/';
+    baseUrl ??= 'http://192.168.100.47:8080/api/';
   }
 
   final Dio _dio;
@@ -205,7 +205,7 @@ class _RestClient implements RestClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.10.3:8080/api/';
+    baseUrl ??= 'http://192.168.100.47:8080/api/';
   }
 
   final Dio _dio;
