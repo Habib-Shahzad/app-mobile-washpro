@@ -126,15 +126,14 @@ class PickUpScreen extends StatelessWidget {
               List<BagDetailRow> rows = [];
 
               for (Order order in orders) {
-                for (Bag bag in order.bags) {
-                  rows.add(BagDetailRow(
-                    orderNumber: order.id.toString(),
-                    serviceType: bag.bag_type,
-                    expected: order.expected_bag_count.toString(),
-                    actual: '0',
-                    variance: '0',
-                  ));
-                }
+                rows.add(BagDetailRow(
+                  orderNumber: order.id.toString(),
+                  serviceType: order.bags[0].bag_type,
+                  expected: order.expected_bag_count.toString(),
+                  actual: order.bags.length.toString(),
+                  variance:
+                      (order.expected_bag_count - order.bags.length).toString(),
+                ));
               }
 
               final List<DataRow> dataRows = rows.map((BagDetailRow row) {

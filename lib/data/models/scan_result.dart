@@ -28,7 +28,7 @@ class ScanResult extends Equatable {
   factory ScanResult.fromBag(Bag bag) {
     return ScanResult(
       bagID: bag.bag_id,
-      orderID: bag.id.toString(),
+      orderID: bag.order_id.toString(),
       bagType: bag.bag_type,
     );
   }
