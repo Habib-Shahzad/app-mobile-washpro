@@ -75,7 +75,7 @@ class DropOffScreen extends StatelessWidget {
                 if (state.bags == null || state.bags!.isEmpty) {
                   return const Center(
                     child: Text(
-                      'No bags found',
+                      'Good Job! No Bags Left',
                     ),
                   );
                 }
@@ -97,6 +97,19 @@ class DropOffScreen extends StatelessWidget {
                         Align(
                           alignment: Alignment.center,
                           child: GestureDetector(
+                            onTap: () async {
+                              String? value = await context
+                                  .push(Routes.barcodeScanner.route);
+
+                              if (context.mounted && value != null) {
+                                BlocProvider.of<BagBloc>(context).add(
+                                  BagScanned(
+                                    scanResult: value,
+                                    updatedStatus: BagStatus.dropOff,
+                                  ),
+                                );
+                              }
+                            },
                             child: Text(
                               'Tap to Scan',
                               style: Theme.of(context)
@@ -117,20 +130,6 @@ class DropOffScreen extends StatelessWidget {
                             itemCount: propList.length,
                             itemBuilder: (context, index) {
                               return DefaultCard(
-                                onTap: () async {
-                                  String? value = await context
-                                      .push(Routes.barcodeScanner.route);
-
-                                  if (context.mounted && value != null) {
-                                    BlocProvider.of<BagBloc>(context).add(
-                                      BagScanned(
-                                        bag: state.bags![index],
-                                        scanResult: value,
-                                        updatedStatus: BagStatus.dropOff,
-                                      ),
-                                    );
-                                  }
-                                },
                                 props: propList[index],
                               );
                             },

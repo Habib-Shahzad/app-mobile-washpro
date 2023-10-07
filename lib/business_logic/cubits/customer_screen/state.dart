@@ -9,8 +9,8 @@ class Initial extends CustomerScreenState {}
 class Loading extends CustomerScreenState {}
 
 class Loaded extends CustomerScreenState {
-  final CustomersResponse customersResponse;
-  const Loaded({required this.customersResponse});
+  final OrdersResponse ordersResponse;
+  const Loaded({required this.ordersResponse});
 }
 
 class Error extends CustomerScreenState {

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:washpro/business_logic/blocs/auth/bloc.dart';
 import 'package:washpro/data/repositories/auth/base.dart';
 import 'package:washpro/presentation/screens/barcode_scanner/screen.dart';
+import 'package:washpro/presentation/screens/delivery/screen.dart';
 import 'package:washpro/presentation/screens/forgot_password/screen.dart';
 import 'package:washpro/presentation/screens/home/screen.dart';
 import 'package:washpro/presentation/screens/login/screen.dart';
@@ -11,8 +12,8 @@ import 'package:washpro/presentation/screens/pick_from_customer/screen.dart';
 import 'package:washpro/presentation/screens/pick_from_washpro/screen.dart';
 import 'package:washpro/presentation/screens/pick_up/screen.dart';
 import 'package:washpro/presentation/screens/drop_off/screen.dart';
+import 'package:washpro/presentation/screens/print_ticket/print_bag_screen.dart';
 import 'package:washpro/presentation/screens/print_ticket/screen.dart';
-import 'package:washpro/presentation/screens/update_bag/scan_screen.dart';
 import 'package:washpro/presentation/screens/update_bag/screen.dart';
 import 'package:washpro/temp.dart';
 
@@ -27,11 +28,12 @@ enum Routes {
   home,
   pickUpFromCustomer,
   pickUp,
-  updateBagScan,
-  updateBagResult,
+  updateBag,
   dropOff,
   printTicket,
+  printBag,
   pickUpFromWashPro,
+  delivery,
 }
 
 extension RoutesExtension on Routes {
@@ -107,18 +109,6 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: Routes.updateBagScan.route,
-      builder: (context, state) {
-        return const UpdateBagScanScreen();
-      },
-    ),
-    GoRoute(
-      path: Routes.updateBagResult.route,
-      builder: (context, state) {
-        return const UpdateBagScreen();
-      },
-    ),
-    GoRoute(
       path: Routes.printTicket.route,
       builder: (context, state) {
         return const PrintTicketScreen();
@@ -134,6 +124,29 @@ final appRouter = GoRouter(
       path: Routes.barcodeScanner.route,
       builder: (context, state) {
         return BarcodeScannerScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.delivery.route,
+      builder: (context, state) {
+        return const DeliveryScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.printBag.route,
+      builder: (context, state) {
+        if (state.extra == null) {
+          return Center(
+              child: Text('No customer selected',
+                  style: Theme.of(context).textTheme.bodyLarge));
+        }
+        return PrintBagScreen(props: state.extra as PrintBagScreenProps);
+      },
+    ),
+    GoRoute(
+      path: Routes.updateBag.route,
+      builder: (context, state) {
+        return const UpdateBagScreen();
       },
     ),
   ],

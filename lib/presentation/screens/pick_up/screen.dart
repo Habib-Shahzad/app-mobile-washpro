@@ -94,6 +94,13 @@ class PickUpScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 12.0),
             child: IconButton(
+              icon: const Icon(Icons.location_pin),
+              onPressed: () {},
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: IconButton(
               icon: const Icon(Icons.call),
               onPressed: () {},
             ),
@@ -172,9 +179,9 @@ class PickUpScreen extends StatelessWidget {
                           width: double.maxFinite,
                           height: 48,
                           child: CustomElevatedButton(
-                              buttonText: 'Navigate',
+                              buttonText: 'Scan Bag',
                               isLoading: false,
-                              iconData: Icons.location_pin,
+                              iconData: Icons.camera,
                               onPressed: () async {
                                 FocusManager.instance.primaryFocus?.unfocus();
                               }),
@@ -214,9 +221,9 @@ class PickUpScreen extends StatelessWidget {
                         const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            CustomRoundedButton("No Show"),
-                            CustomRoundedButton("Add Notes"),
-                            CustomRoundedButton("Scan Bags"),
+                            Expanded(child: CustomRoundedButton("No Show")),
+                            SizedBox(width: 5),
+                            Expanded(child: CustomRoundedButton("Add Notes")),
                           ],
                         ),
                         const SizedBox(

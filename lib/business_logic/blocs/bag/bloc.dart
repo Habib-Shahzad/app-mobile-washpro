@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:washpro/data/models/api/bag/model.dart';
+import 'package:washpro/data/models/scan_result.dart';
 import 'package:washpro/data/repositories/bag/base.dart';
 
 part 'event.dart';
@@ -36,13 +37,13 @@ class BagBloc extends Bloc<BagEvent, BagState> {
     BagScanned event,
     Emitter<BagState> emit,
   ) async {
-    Bag bag = event.bag;
     String status = event.updatedStatus;
 
     try {
-      bag.matchScan(event.scanResult);
-      await _bagRepository.updateBagStatus(bag, status);
-      final updatedBags = state.bags!.where((b) => b.id != bag.id).toList();
+      ScanResult scan = ScanResult.fromString(event.scanResult);
+      await _bagRepository.updateBagStatus(scan, status);
+      final updatedBags =
+          state.bags!.where((b) => b.bag_id != scan.bagID).toList();
       emit(state.copyWith(bags: updatedBags, scanStatus: ScanStatus.matched));
     } catch (e) {
       emit(state.copyWith(scanStatus: ScanStatus.invalid));

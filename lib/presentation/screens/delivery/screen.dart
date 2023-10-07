@@ -9,8 +9,8 @@ import 'package:washpro/presentation/screens/pick_from_customer/pickup_card.dart
 import 'package:washpro/presentation/widgets/custom_app_bar.dart';
 import 'package:washpro/routes/routes.dart';
 
-class PickFromWashProScreen extends StatelessWidget {
-  const PickFromWashProScreen({super.key});
+class DeliveryScreen extends StatelessWidget {
+  const DeliveryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +27,16 @@ class PickFromWashProScreen extends StatelessWidget {
           child: CustomAppBar(
             goBack: goBack,
             titleTexts: const [
-              'PickUp',
-              'from',
-              'WashPro',
+              'Delivery',
+              'to',
+              'Customer',
             ],
           ),
         ),
         body: BlocProvider<BagBloc>(
           create: (context) =>
               BagBloc(repository: RepositoryProvider.of<BagRepository>(context))
-                ..add(const LoadBags(status: BagStatus.ready)),
+                ..add(const LoadBags(status: BagStatus.dispatched)),
           child: BlocListener<BagBloc, BagState>(
             listener: (context, state) {
               if (state.screenState == ScreenState.loaded) {
@@ -105,7 +105,7 @@ class PickFromWashProScreen extends StatelessWidget {
                                 BlocProvider.of<BagBloc>(context).add(
                                   BagScanned(
                                     scanResult: value,
-                                    updatedStatus: BagStatus.dispatched,
+                                    updatedStatus: BagStatus.delivered,
                                   ),
                                 );
                               }

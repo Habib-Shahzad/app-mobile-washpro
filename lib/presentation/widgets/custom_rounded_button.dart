@@ -4,7 +4,8 @@ class CustomRoundedButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
 
-  const CustomRoundedButton(this.text, {super.key, this.onPressed});
+  const CustomRoundedButton(this.text, {Key? key, this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +23,13 @@ class CustomRoundedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
-      child: Text(text,
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(color: Theme.of(context).colorScheme.secondary)),
+      child: Text(
+        text,
+        style: Theme.of(context)
+            .textTheme
+            .bodyMedium!
+            .copyWith(color: Theme.of(context).colorScheme.secondary),
+      ),
     );
   }
 }

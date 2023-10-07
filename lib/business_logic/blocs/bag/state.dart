@@ -1,6 +1,7 @@
 part of 'bloc.dart';
 
 enum ScanStatus { matched, invalid }
+
 enum ScreenState { initial, loading, loaded, error }
 
 class BagState extends Equatable {
@@ -30,8 +31,9 @@ class BagState extends Equatable {
   }
 
   @override
+  // ignore: hash_and_equals
+  bool operator ==(Object other) => false;
+
+  @override
   List<Object?> get props => [bags, scanStatus, errorMessage, screenState];
 }
-
-
-

@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:washpro/data/models/scan_result.dart';
 
 part 'model.g.dart';
 
@@ -40,6 +39,8 @@ class Bag {
   final String? deleted_at;
   final String bag_id;
   final String bag_type;
+  final int item_count;
+  final int weight;
   final int customer;
 
   Bag({
@@ -51,17 +52,10 @@ class Bag {
     this.order_id,
     required this.bag_id,
     required this.bag_type,
+    required this.item_count,
+    required this.weight,
     required this.customer,
   });
-
-  void matchScan(String scanResult) {
-    ScanResult expected = ScanResult.fromBag(this);
-    ScanResult scanned = ScanResult.fromString(scanResult);
-
-    if (expected != scanned) {
-      throw Exception('Scan result does not match bag');
-    }
-  }
 
   factory Bag.fromJson(Map<String, dynamic> json) => _$BagFromJson(json);
 

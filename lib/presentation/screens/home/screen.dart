@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
     }
 
     navigateToUpdateBag() {
-      push(Routes.updateBagScan);
+      push(Routes.updateBag);
     }
 
     navigateToPrintScreen() {
@@ -36,7 +36,9 @@ class HomeScreen extends StatelessWidget {
       push(Routes.pickUpFromWashPro);
     }
 
-    navigateToDeliveryScreen() {}
+    navigateToDeliveryScreen() {
+      push(Routes.delivery);
+    }
 
     final iconCardPropsList = [
       IconCardProps(
