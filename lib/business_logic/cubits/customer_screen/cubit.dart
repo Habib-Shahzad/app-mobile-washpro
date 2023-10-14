@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:washpro/data/models/api/getOrders/model.dart';
+import 'package:washpro/data/models/api/customers_response/model.dart';
 import 'package:washpro/data/repositories/customer/base.dart';
 import 'package:washpro/logger.dart';
 
@@ -14,8 +14,9 @@ class CustomerScreenCubit extends Cubit<CustomerScreenState> {
   Future<void> getOrders() async {
     emit(Loading());
     try {
-      OrdersResponse response = await _customerRepository.getOrders();
-      emit(Loaded(ordersResponse: response));
+      logger.i('Fetching all Customers getCustomers(); ');
+      CustomersResponse response = await _customerRepository.getCustomers();
+      emit(Loaded(customersResponse: response));
       logger.i('Fetched Customers');
     } catch (e) {
       logger.e(e);

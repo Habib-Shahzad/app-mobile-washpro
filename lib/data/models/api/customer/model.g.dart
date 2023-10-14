@@ -17,8 +17,8 @@ Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
       email: json['email'] as String,
       customer_id: json['customer_id'] as String,
       preferences: json['preferences'] as String,
-      bags: (json['bags'] as List<dynamic>?)
-          ?.map((e) => Bag.fromJson(e as Map<String, dynamic>))
+      scheduled_orders: (json['scheduled_orders'] as List<dynamic>)
+          .map((e) => Order.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -33,5 +33,5 @@ Map<String, dynamic> _$CustomerToJson(Customer instance) => <String, dynamic>{
       'email': instance.email,
       'customer_id': instance.customer_id,
       'preferences': instance.preferences,
-      'bags': instance.bags,
+      'scheduled_orders': instance.scheduled_orders,
     };

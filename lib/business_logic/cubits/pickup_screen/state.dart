@@ -1,19 +1,42 @@
 part of 'cubit.dart';
 
-abstract class PickupScreenState {
-  const PickupScreenState();
+enum AddedBagStatus {
+  loading,
+  success,
+  failed,
 }
 
-class Initial extends PickupScreenState {}
+class PickupScreenState extends Equatable {
+  final bool? initialLoading;
+  final List<OrderWithBags>? orders;
+  final AddedBagStatus? addingBag;
+  final String? errorMessage;
 
-class Loading extends PickupScreenState {}
+  const PickupScreenState({
+    this.initialLoading,
+    this.addingBag,
+    this.orders,
+    this.errorMessage,
+  });
 
-class Loaded extends PickupScreenState {
-  final List<Order> orderList;
-  const Loaded({required this.orderList});
-}
+  PickupScreenState copyWith({
+    bool? initialLoading,
+    AddedBagStatus? addingBag,
+    List<OrderWithBags>? orders,
+    String? errorMessage,
+  }) {
+    return PickupScreenState(
+      initialLoading: initialLoading ?? this.initialLoading,
+      orders: orders ?? this.orders,
+      addingBag: addingBag ?? this.addingBag,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
 
-class Error extends PickupScreenState {
-  final String errorMessage;
-  const Error({required this.errorMessage});
+  @override
+  // ignore: hash_and_equals
+  bool operator ==(Object other) => false;
+
+  @override
+  List<Object?> get props => [initialLoading, addingBag, orders, errorMessage];
 }

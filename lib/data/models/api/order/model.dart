@@ -1,36 +1,14 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:washpro/data/models/api/bag/model.dart';
-import 'package:washpro/data/models/api/customer/model.dart';
 
 part 'model.g.dart';
 
 @JsonSerializable()
-class OrdersResponse {
-  final int count;
-  final String? next;
-  final String? previous;
-  final List<Order> results;
-
-  OrdersResponse({
-    required this.count,
-    this.next,
-    this.previous,
-    required this.results,
-  });
-
-  factory OrdersResponse.fromJson(Map<String, dynamic> json) =>
-      _$OrdersResponseFromJson(json);
-
-  Map<String, dynamic> toJson() => _$OrdersResponseToJson(this);
-}
-
-@JsonSerializable()
 class Order {
   final int id;
-  final List<Bag> bags;
-  final Customer customer;
+  final List<int> bags;
+  final int customer;
   final String created_at;
   final String updated_at;
   final String? deleted_at;

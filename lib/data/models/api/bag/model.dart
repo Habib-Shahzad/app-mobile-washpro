@@ -39,8 +39,8 @@ class Bag {
   final String? deleted_at;
   final String bag_id;
   final String bag_type;
-  final int item_count;
-  final int weight;
+  final int? item_count;
+  final double? weight;
   final int customer;
 
   Bag({

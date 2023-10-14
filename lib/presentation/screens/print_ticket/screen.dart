@@ -5,7 +5,7 @@ import 'package:washpro/business_logic/blocs/bag/bloc.dart';
 
 import 'package:washpro/data/models/api/bag/model.dart';
 import 'package:washpro/data/repositories/bag/base.dart';
-import 'package:washpro/presentation/screens/pick_from_customer/pickup_card.dart';
+import 'package:washpro/presentation/widgets/pickup_card.dart';
 import 'package:washpro/presentation/screens/print_ticket/print_bag_screen.dart';
 import 'package:washpro/routes/routes.dart';
 

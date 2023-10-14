@@ -15,8 +15,8 @@ Bag _$BagFromJson(Map<String, dynamic> json) => Bag(
       order_id: json['order_id'] as int?,
       bag_id: json['bag_id'] as String,
       bag_type: json['bag_type'] as String,
-      item_count: json['item_count'] as int,
-      weight: json['weight'] as int,
+      item_count: json['item_count'] as int?,
+      weight: (json['weight'] as num?)?.toDouble(),
       customer: json['customer'] as int,
     );
 

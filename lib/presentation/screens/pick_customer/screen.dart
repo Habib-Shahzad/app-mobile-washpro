@@ -3,15 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:washpro/business_logic/cubits/customer_screen/cubit.dart';
 import 'package:washpro/data/models/api/bag/model.dart';
-import 'package:washpro/data/models/api/getOrders/model.dart';
+import 'package:washpro/data/models/api/customers_response/model.dart';
 import 'package:washpro/data/repositories/customer/base.dart';
-import 'package:washpro/presentation/screens/pick_up/screen.dart';
+import 'package:washpro/presentation/screens/pickup/screen.dart';
 import 'package:washpro/presentation/widgets/custom_app_bar.dart';
+import 'package:washpro/presentation/widgets/pickup_card.dart';
 import 'package:washpro/routes/routes.dart';
-import 'pickup_card.dart';
 
-class PickFromCustomerScreen extends StatelessWidget {
-  const PickFromCustomerScreen({super.key});
+class PickupFromCustomerScreen extends StatelessWidget {
+  const PickupFromCustomerScreen({super.key});
 
   joinBags(List<Bag> bags) {
     return bags.map((e) => e.id.toString()).join(' | ');
@@ -52,7 +52,7 @@ class PickFromCustomerScreen extends StatelessWidget {
               }
 
               if (state is Loaded) {
-                OrdersResponse customersResponse = state.ordersResponse;
+                CustomersResponse customersResponse = state.customersResponse;
 
                 return Center(
                   child: Column(
@@ -66,11 +66,11 @@ class PickFromCustomerScreen extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   DefaultCardProps props = DefaultCardProps(
                                       thirdLine: customersResponse
-                                          .results[index].customer.address,
-                                      secondLine: customersResponse
-                                          .results[index].customer.name,
+                                          .results[index].address,
+                                      secondLine:
+                                          customersResponse.results[index].name,
                                       firstLine: customersResponse
-                                          .results[index].order_id);
+                                          .results[index].customer_id);
 
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 7.0),
@@ -78,10 +78,10 @@ class PickFromCustomerScreen extends StatelessWidget {
                                       props: props,
                                       onTap: () => {
                                         context.push(
-                                          Routes.pickUp.route,
-                                          extra: PickUpScreenProps(
+                                          Routes.manageOrder.route,
+                                          extra: ManageOrderProps(
                                             customer: customersResponse
-                                                .results[index].customer,
+                                                .results[index],
                                           ),
                                         ),
                                       },

@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
     }
 
     navigateToCustomersPage() {
-      push(Routes.pickUpFromCustomer);
+      push(Routes.pickFromCustomer);
     }
 
     navigateToDropOff() {
@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
     }
 
     navigateToWashProScreen() {
-      push(Routes.pickUpFromWashPro);
+      push(Routes.pickFromWashpro);
     }
 
     navigateToDeliveryScreen() {

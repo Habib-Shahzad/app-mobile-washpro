@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:washpro/data/models/api/auth/model.dart';
 import 'package:washpro/logger.dart';
 import 'package:washpro/services/preferences.dart';
+import 'package:washpro/services/retrofit/auth_client.dart';
 import 'package:washpro/services/retrofit/client.dart';
 import 'package:washpro/singletons.dart';
 
@@ -52,6 +53,3 @@ AuthRestClient getAuthClient() {
   addAuthInterceptor(dio);
   return AuthRestClient(dio);
 }
-
-
-

@@ -1,9 +1,10 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:washpro/data/models/api/customer/model.dart';
-import 'package:washpro/data/models/api/getCustomers/model.dart';
-import 'package:washpro/data/models/api/getOrders/model.dart';
+import 'package:washpro/data/models/api/customers_response/model.dart';
+import 'package:washpro/data/models/api/order_with_bags/model.dart';
+import 'package:washpro/data/models/api/orders_response/model.dart';
 import 'package:washpro/data/repositories/customer/base.dart';
-import 'package:washpro/services/retrofit/client.dart';
+import 'package:washpro/services/retrofit/auth_client.dart';
 import 'package:washpro/singletons.dart';
 
 class AppCustomerRepository extends CustomerRepository {
@@ -25,14 +26,14 @@ class AppCustomerRepository extends CustomerRepository {
   }
 
   @override
-  Future<Order> getOrder(int id) async {
+  Future<OrderWithBags> getOrder(int id) async {
     final client = getIt<AuthRestClient>();
     final response = await client.getOrder(id);
     return response;
   }
 
   @override
-  Future<List<Order>> getCustomerOrders(String id) async {
+  Future<List<OrderWithBags>> getCustomerOrders(String id) async {
     final client = getIt<AuthRestClient>();
     final response = await client.getCustomerOrders(id);
     return response;
@@ -42,6 +43,13 @@ class AppCustomerRepository extends CustomerRepository {
   Future<OrdersResponse> getOrders() async {
     final client = getIt<AuthRestClient>();
     final response = await client.getOrders('scheduled');
+    return response;
+  }
+
+  @override
+  Future<OrderWithBags> addBag(int orderID, String bagID) async {
+    final client = getIt<AuthRestClient>();
+    final response = await client.addBag(orderID, bagID);
     return response;
   }
 

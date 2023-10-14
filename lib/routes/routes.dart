@@ -8,9 +8,9 @@ import 'package:washpro/presentation/screens/delivery/screen.dart';
 import 'package:washpro/presentation/screens/forgot_password/screen.dart';
 import 'package:washpro/presentation/screens/home/screen.dart';
 import 'package:washpro/presentation/screens/login/screen.dart';
-import 'package:washpro/presentation/screens/pick_from_customer/screen.dart';
-import 'package:washpro/presentation/screens/pick_from_washpro/screen.dart';
-import 'package:washpro/presentation/screens/pick_up/screen.dart';
+import 'package:washpro/presentation/screens/pick_customer/screen.dart';
+import 'package:washpro/presentation/screens/pick_washpro/screen.dart';
+import 'package:washpro/presentation/screens/pickup/screen.dart';
 import 'package:washpro/presentation/screens/drop_off/screen.dart';
 import 'package:washpro/presentation/screens/print_ticket/print_bag_screen.dart';
 import 'package:washpro/presentation/screens/print_ticket/screen.dart';
@@ -26,13 +26,13 @@ enum Routes {
   barcodeScanner,
 
   home,
-  pickUpFromCustomer,
-  pickUp,
+  pickFromCustomer,
+  manageOrder,
   updateBag,
   dropOff,
   printTicket,
   printBag,
-  pickUpFromWashPro,
+  pickFromWashpro,
   delivery,
 }
 
@@ -88,18 +88,18 @@ final appRouter = GoRouter(
       builder: (context, state) => const ForgotPasswordScreen(),
     ),
     GoRoute(
-      path: Routes.pickUpFromCustomer.route,
-      builder: (context, state) => const PickFromCustomerScreen(),
+      path: Routes.pickFromCustomer.route,
+      builder: (context, state) => const PickupFromCustomerScreen(),
     ),
     GoRoute(
-      path: Routes.pickUp.route,
+      path: Routes.manageOrder.route,
       builder: (context, state) {
         if (state.extra == null) {
           return Center(
               child: Text('No customer selected',
                   style: Theme.of(context).textTheme.bodyLarge));
         }
-        return PickUpScreen(props: state.extra as PickUpScreenProps);
+        return ManageOrderScreen(props: state.extra as ManageOrderProps);
       },
     ),
     GoRoute(
@@ -115,9 +115,9 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: Routes.pickUpFromWashPro.route,
+      path: Routes.pickFromWashpro.route,
       builder: (context, state) {
-        return const PickFromWashProScreen();
+        return const PickFromWashproScreen();
       },
     ),
     GoRoute(

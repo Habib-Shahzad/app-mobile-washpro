@@ -6,30 +6,10 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-OrdersResponse _$OrdersResponseFromJson(Map<String, dynamic> json) =>
-    OrdersResponse(
-      count: json['count'] as int,
-      next: json['next'] as String?,
-      previous: json['previous'] as String?,
-      results: (json['results'] as List<dynamic>)
-          .map((e) => Order.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$OrdersResponseToJson(OrdersResponse instance) =>
-    <String, dynamic>{
-      'count': instance.count,
-      'next': instance.next,
-      'previous': instance.previous,
-      'results': instance.results,
-    };
-
 Order _$OrderFromJson(Map<String, dynamic> json) => Order(
       id: json['id'] as int,
-      bags: (json['bags'] as List<dynamic>)
-          .map((e) => Bag.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      customer: Customer.fromJson(json['customer'] as Map<String, dynamic>),
+      bags: (json['bags'] as List<dynamic>).map((e) => e as int).toList(),
+      customer: json['customer'] as int,
       created_at: json['created_at'] as String,
       updated_at: json['updated_at'] as String,
       deleted_at: json['deleted_at'] as String?,

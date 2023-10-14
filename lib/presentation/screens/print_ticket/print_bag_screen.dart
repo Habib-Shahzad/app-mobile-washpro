@@ -5,11 +5,10 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:washpro/business_logic/cubits/print_screen/cubit.dart';
 import 'package:washpro/data/models/api/bag/model.dart';
-import 'package:washpro/data/models/api/customer/model.dart';
-import 'package:washpro/data/models/api/getOrders/model.dart';
+import 'package:washpro/data/models/api/order_with_bags/model.dart';
 import 'package:washpro/data/repositories/bag/base.dart';
 import 'package:washpro/data/repositories/customer/base.dart';
-import 'package:washpro/presentation/screens/pick_from_customer/pickup_card.dart';
+import 'package:washpro/presentation/widgets/pickup_card.dart';
 import 'package:washpro/presentation/widgets/card_text_field.dart';
 import 'package:washpro/presentation/widgets/custom_elevated_button.dart';
 import 'package:intl/intl.dart';
@@ -77,7 +76,7 @@ class PrintBagScreen extends StatelessWidget {
                 customerRepo:
                     RepositoryProvider.of<CustomerRepository>(context),
                 bagRepo: RepositoryProvider.of<BagRepository>(context),
-              )..loadCustomerAndOrder(props.bag.customer, props.bag.order_id!),
+              )..loadOrder(props.bag.order_id!),
               child: BlocListener<PrintScreenCubit, PrintScreenState>(
                 listener: (context, state) {
                   if (state.errorMessage != null) {
@@ -93,13 +92,12 @@ class PrintBagScreen extends StatelessWidget {
                     final cubit = BlocProvider.of<PrintScreenCubit>(context);
 
                     if (state.initialLoading == false) {
-                      Customer customer = state.customer!;
-                      Order order = state.order!;
+                      OrderWithBags order = state.order!;
 
                       DefaultCardProps cardProps = DefaultCardProps(
-                        firstLine: customer.customer_id,
-                        secondLine: customer.name,
-                        thirdLine: customer.address,
+                        firstLine: order.customer.customer_id,
+                        secondLine: order.customer.name,
+                        thirdLine: order.customer.address,
                       );
 
                       return Padding(
@@ -157,7 +155,8 @@ class PrintBagScreen extends StatelessWidget {
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(16.0),
-                                      child: Text(formatDate(order.due_date)),
+                                      child: Text(
+                                          formatDate(order.due_date ?? '')),
                                     ),
                                   )),
                               const SizedBox(
@@ -177,7 +176,9 @@ class PrintBagScreen extends StatelessWidget {
                                 ),
                               ),
                               FormBuilderCardTextField(
-                                initialValue: props.bag.item_count.toString(),
+                                initialValue: props.bag.item_count != null
+                                    ? props.bag.item_count.toString()
+                                    : '-',
                                 name: 'items_count',
                                 validators: [
                                   FormBuilderValidators.required(),
@@ -201,7 +202,9 @@ class PrintBagScreen extends StatelessWidget {
                                 ),
                               ),
                               FormBuilderCardTextField(
-                                initialValue: props.bag.weight.toString(),
+                                initialValue: props.bag.item_count != null
+                                    ? props.bag.weight.toString()
+                                    : '-',
                                 name: 'bag_weight',
                                 validators: [
                                   FormBuilderValidators.required(),

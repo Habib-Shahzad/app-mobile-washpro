@@ -16,6 +16,9 @@ class FormBuilderCardTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController controller =
+        TextEditingController(text: initialValue);
+
     return FormBuilderField(
       name: name,
       validator: FormBuilderValidators.compose([...validators]),
@@ -33,7 +36,7 @@ class FormBuilderCardTextField extends StatelessWidget {
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.all(16.0),
                 ),
-                controller: TextEditingController(text: field.value),
+                controller: controller,
                 onChanged: (value) {
                   field.didChange(value);
                 },

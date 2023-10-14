@@ -1,14 +1,16 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:washpro/data/models/api/customer/model.dart';
-import 'package:washpro/data/models/api/getCustomers/model.dart';
-import 'package:washpro/data/models/api/getOrders/model.dart';
+import 'package:washpro/data/models/api/customers_response/model.dart';
+import 'package:washpro/data/models/api/order_with_bags/model.dart';
+import 'package:washpro/data/models/api/orders_response/model.dart';
 
 abstract class CustomerRepository {
   Future<Customer> getCustomer(int id);
   Future<CustomersResponse> getCustomers();
-  Future<Order> getOrder(int id);
+  Future<OrderWithBags> getOrder(int id);
   Future<OrdersResponse> getOrders();
-  Future<List<Order>> getCustomerOrders(String id);
+  Future<List<OrderWithBags>> getCustomerOrders(String id);
+  Future<OrderWithBags> addBag(int orderID, String bagID);
   Future<HttpResponse> printTicket(
     int id,
     String bagID,

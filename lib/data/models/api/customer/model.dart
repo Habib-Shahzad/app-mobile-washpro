@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:washpro/data/models/api/bag/model.dart';
+import 'package:washpro/data/models/api/order/model.dart';
 part 'model.g.dart';
 
 @JsonSerializable()
@@ -17,7 +17,7 @@ class Customer {
   final String customer_id;
   final String preferences;
 
-  List<Bag>? bags;
+  List<Order> scheduled_orders;
 
   Customer({
     required this.id,
@@ -30,7 +30,7 @@ class Customer {
     required this.email,
     required this.customer_id,
     required this.preferences,
-    this.bags,
+    required this.scheduled_orders,
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) =>
