@@ -217,7 +217,7 @@ class ManageOrderScreen extends StatelessWidget {
                                           rows[0].orderNumber;
 
                                       return StatefulBuilder(
-                                        builder: (BuildContext context,
+                                        builder: (BuildContext alertBoxContext,
                                             StateSetter setState) {
                                           return AlertDialog(
                                             title: const Text('Select Order'),
@@ -239,22 +239,24 @@ class ManageOrderScreen extends StatelessWidget {
                                             actions: <Widget>[
                                               TextButton(
                                                 onPressed: () {
-                                                  Navigator.of(context).pop();
+                                                  alertBoxContext.pop();
                                                 },
                                                 child: const Text('Close'),
                                               ),
                                               TextButton(
                                                 onPressed: () async {
                                                   String? value =
-                                                      await context.push(Routes
-                                                          .barcodeScanner
-                                                          .route);
+                                                      await alertBoxContext
+                                                          .push(Routes
+                                                              .barcodeScanner
+                                                              .route);
 
                                                   await cubit.addBag(
                                                       int.parse(selectedValue),
                                                       value);
-                                                  if (context.mounted) {
-                                                    Navigator.of(context).pop();
+
+                                                  if (alertBoxContext.mounted) {
+                                                    alertBoxContext.pop();
                                                   }
                                                 },
                                                 child: const Text('Scan'),
