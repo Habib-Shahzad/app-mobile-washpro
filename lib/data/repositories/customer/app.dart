@@ -54,6 +54,13 @@ class AppCustomerRepository extends CustomerRepository {
   }
 
   @override
+  Future<OrderWithBags> updateOrder(int orderID, PatchOrder order) async {
+    final client = getIt<AuthRestClient>();
+    final response = await client.patchOrder(orderID, order);
+    return response;
+  }
+
+  @override
   Future<HttpResponse> printTicket(
     int id,
     String bagID,
@@ -61,7 +68,11 @@ class AppCustomerRepository extends CustomerRepository {
     String itemsCount,
   ) async {
     final client = getIt<AuthRestClient>();
-    final response = await client.printTicket(id, bagID, bagWeight, itemsCount);
+
+    double weight = double.parse(bagWeight);
+    int count = int.parse(itemsCount);
+
+    final response = await client.printTicket(id, bagID, weight, count);
     return response;
   }
 }

@@ -233,7 +233,7 @@ class PrintBagScreen extends StatelessWidget {
                                         String bagWeight = values['bag_weight'];
 
                                         bool success = await cubit.printTicket(
-                                            props.bag, itemsCount, bagWeight);
+                                            props.bag, bagWeight, itemsCount);
 
                                         if (context.mounted && success) {
                                           context.pop();

@@ -72,3 +72,47 @@ class OrderCustomer {
 
   Map<String, dynamic> toJson() => _$OrderCustomerToJson(this);
 }
+
+// ---------------------------------------------------
+
+class PatchOrder {
+  String? order_id;
+  String? scheduled_pickup;
+  String? due_date;
+  int? expected_bag_count;
+  String? status;
+  int? valet;
+
+  PatchOrder({
+    this.order_id,
+    this.scheduled_pickup,
+    this.due_date,
+    this.expected_bag_count,
+    this.status,
+    this.valet,
+  });
+
+  factory PatchOrder.fromJson(Map<String, dynamic> json) {
+    return PatchOrder(
+      order_id: json['order_id'],
+      scheduled_pickup: json['scheduled_pickup'],
+      due_date: json['due_date'],
+      expected_bag_count: json['expected_bag_count'],
+      status: json['status'],
+      valet: json['valet'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (order_id != null) data['order_id'] = order_id;
+    if (scheduled_pickup != null) data['scheduled_pickup'] = scheduled_pickup;
+    if (due_date != null) data['due_date'] = due_date;
+    if (expected_bag_count != null) {
+      data['expected_bag_count'] = expected_bag_count;
+    }
+    if (status != null) data['status'] = status;
+    if (valet != null) data['valet'] = valet;
+    return data;
+  }
+}

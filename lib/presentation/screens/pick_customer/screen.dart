@@ -5,7 +5,7 @@ import 'package:washpro/business_logic/cubits/customer_screen/cubit.dart';
 import 'package:washpro/data/models/api/bag/model.dart';
 import 'package:washpro/data/models/api/customers_response/model.dart';
 import 'package:washpro/data/repositories/customer/base.dart';
-import 'package:washpro/presentation/screens/pickup/screen.dart';
+import 'package:washpro/presentation/screens/customer_orders/screen.dart';
 import 'package:washpro/presentation/widgets/custom_app_bar.dart';
 import 'package:washpro/presentation/widgets/pickup_card.dart';
 import 'package:washpro/routes/routes.dart';
@@ -78,10 +78,11 @@ class PickupFromCustomerScreen extends StatelessWidget {
                                       props: props,
                                       onTap: () => {
                                         context.push(
-                                          Routes.manageOrder.route,
-                                          extra: ManageOrderProps(
-                                            customer: customersResponse
-                                                .results[index],
+                                          Routes.customerOrders.route,
+                                          extra: CustomerOrdersScreenProps(
+                                            orders: customersResponse
+                                                .results[index]
+                                                .scheduled_orders,
                                           ),
                                         ),
                                       },

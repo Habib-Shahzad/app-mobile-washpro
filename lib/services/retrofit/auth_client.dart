@@ -31,12 +31,18 @@ abstract class AuthRestClient {
     @Path('id') int id,
   );
 
+  @PATCH("orders/{id}/")
+  Future<OrderWithBags> patchOrder(
+    @Path('id') int id,
+    @Body() PatchOrder order,
+  );
+
   @GET("orders/{id}/print-ticket/")
   Future<HttpResponse> printTicket(
     @Path('id') int id,
     @Query('bag_id') String bagID,
-    @Query('bag_weight') String bagWeight,
-    @Query('items_count') String itemsCount,
+    @Query('bag_weight') double bagWeight,
+    @Query('items_count') int itemsCount,
   );
 
   @GET("customer/{id}/orders/")

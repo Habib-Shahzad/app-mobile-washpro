@@ -1,15 +1,13 @@
 class BagDetailRow {
-  final String orderNumber;
+  final String bagID;
   final String serviceType;
-  final String expected;
-  final String actual;
-  final String variance;
+  final String weight;
+  final String itemCount;
 
   BagDetailRow({
-    required this.orderNumber,
+    required this.bagID,
     required this.serviceType,
-    required this.expected,
-    required this.actual,
-    required this.variance,
+    required this.weight,
+    required this.itemCount,
   });
 }

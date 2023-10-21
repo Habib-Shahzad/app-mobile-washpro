@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:washpro/business_logic/blocs/auth/bloc.dart';
 import 'package:washpro/data/repositories/auth/base.dart';
 import 'package:washpro/presentation/screens/barcode_scanner/screen.dart';
+import 'package:washpro/presentation/screens/customer_orders/screen.dart';
 import 'package:washpro/presentation/screens/delivery/screen.dart';
 import 'package:washpro/presentation/screens/forgot_password/screen.dart';
 import 'package:washpro/presentation/screens/home/screen.dart';
@@ -24,6 +25,7 @@ enum Routes {
   forgotPassword,
 
   barcodeScanner,
+  customerOrders,
 
   home,
   pickFromCustomer,
@@ -90,6 +92,16 @@ final appRouter = GoRouter(
     GoRoute(
       path: Routes.pickFromCustomer.route,
       builder: (context, state) => const PickupFromCustomerScreen(),
+    ),
+    GoRoute(
+      path: Routes.customerOrders.route,
+      builder: (context, state) {
+        if (state.extra == null) {
+          return const PickupFromCustomerScreen();
+        }
+        return CustomerOrdersScreen(
+            props: state.extra as CustomerOrdersScreenProps);
+      },
     ),
     GoRoute(
       path: Routes.manageOrder.route,

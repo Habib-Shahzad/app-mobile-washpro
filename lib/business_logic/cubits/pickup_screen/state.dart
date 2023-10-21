@@ -1,6 +1,6 @@
 part of 'cubit.dart';
 
-enum AddedBagStatus {
+enum LoadingStatus {
   loading,
   success,
   failed,
@@ -8,27 +8,31 @@ enum AddedBagStatus {
 
 class PickupScreenState extends Equatable {
   final bool? initialLoading;
-  final List<OrderWithBags>? orders;
-  final AddedBagStatus? addingBag;
+  final OrderWithBags? order;
+  final LoadingStatus? addingBag;
+  final LoadingStatus? pickingUpOrder;
   final String? errorMessage;
 
   const PickupScreenState({
     this.initialLoading,
     this.addingBag,
-    this.orders,
+    this.pickingUpOrder,
+    this.order,
     this.errorMessage,
   });
 
   PickupScreenState copyWith({
     bool? initialLoading,
-    AddedBagStatus? addingBag,
-    List<OrderWithBags>? orders,
+    LoadingStatus? addingBag,
+    LoadingStatus? pickingUpOrder,
+    OrderWithBags? order,
     String? errorMessage,
   }) {
     return PickupScreenState(
       initialLoading: initialLoading ?? this.initialLoading,
-      orders: orders ?? this.orders,
+      order: order ?? this.order,
       addingBag: addingBag ?? this.addingBag,
+      pickingUpOrder: pickingUpOrder ?? this.pickingUpOrder,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
@@ -38,5 +42,6 @@ class PickupScreenState extends Equatable {
   bool operator ==(Object other) => false;
 
   @override
-  List<Object?> get props => [initialLoading, addingBag, orders, errorMessage];
+  List<Object?> get props =>
+      [initialLoading, addingBag, pickingUpOrder, order, errorMessage];
 }

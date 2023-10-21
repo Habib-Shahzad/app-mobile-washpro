@@ -11,6 +11,7 @@ abstract class CustomerRepository {
   Future<OrdersResponse> getOrders();
   Future<List<OrderWithBags>> getCustomerOrders(String id);
   Future<OrderWithBags> addBag(int orderID, String bagID);
+  Future<OrderWithBags> updateOrder(int orderID, PatchOrder order);
   Future<HttpResponse> printTicket(
     int id,
     String bagID,

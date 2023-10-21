@@ -16,6 +16,23 @@ class PickupScreenCubit extends Cubit<PickupScreenState> {
           ),
         );
 
+  Future<void> updateOrderStatus(int orderID, String status) async {
+    try {
+      logger.i('Changing Order Status $orderID $status');
+
+      emit(state.copyWith(pickingUpOrder: LoadingStatus.loading));
+
+      OrderWithBags order = await _customerRepository.updateOrder(
+          orderID, PatchOrder(status: status));
+
+      emit(state.copyWith(pickingUpOrder: LoadingStatus.success, order: order));
+    } catch (e) {
+      logger.e(e);
+      logger.e("failed To change order status");
+      emit(state.copyWith(pickingUpOrder: LoadingStatus.failed));
+    }
+  }
+
   Future<void> addBag(int orderID, String? bagID) async {
     try {
       if (bagID == null) {
@@ -25,38 +42,30 @@ class PickupScreenCubit extends Cubit<PickupScreenState> {
 
       logger.i('Adding Bag to order $orderID $bagID');
 
-      emit(state.copyWith(addingBag: AddedBagStatus.loading));
+      emit(state.copyWith(addingBag: LoadingStatus.loading));
 
       OrderWithBags order = await _customerRepository.addBag(orderID, bagID);
-      List<OrderWithBags> updatedOrders = state.orders!.map((e) {
-        if (e.id == order.id) {
-          return order;
-        }
-        return e;
-      }).toList();
 
-      emit(state.copyWith(
-          orders: updatedOrders, addingBag: AddedBagStatus.success));
+      emit(state.copyWith(order: order, addingBag: LoadingStatus.success));
     } catch (e) {
       logger.e(e);
       logger.e("failed To add bag");
-      emit(state.copyWith(addingBag: AddedBagStatus.failed));
+      emit(state.copyWith(addingBag: LoadingStatus.failed));
     }
   }
 
-  Future<void> getCustomerOrders(String id) async {
+  Future<void> getOrder(int id) async {
     emit(state.copyWith(initialLoading: true));
 
     try {
-      logger.i('Fetching Customer Orders');
-      List<OrderWithBags> response =
-          await _customerRepository.getCustomerOrders(id);
+      logger.i('Fetching Order');
+      OrderWithBags response = await _customerRepository.getOrder(id);
       emit(state.copyWith(
         initialLoading: false,
-        orders: response,
+        order: response,
       ));
 
-      logger.i('Fetched Customer Orders');
+      logger.i('Fetched Order');
     } catch (e) {
       logger.e(e);
       emit(state.copyWith(initialLoading: false, errorMessage: e.toString()));

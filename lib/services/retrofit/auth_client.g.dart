@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: prefer_const_declarations
-
 part of 'auth_client.dart';
 
 // **************************************************************************
@@ -131,11 +129,42 @@ class _AuthRestClient implements AuthRestClient {
   }
 
   @override
+  Future<OrderWithBags> patchOrder(
+    int id,
+    PatchOrder order,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(order.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<OrderWithBags>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'orders/${id}/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = OrderWithBags.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<HttpResponse<dynamic>> printTicket(
     int id,
     String bagID,
-    String bagWeight,
-    String itemsCount,
+    double bagWeight,
+    int itemsCount,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
