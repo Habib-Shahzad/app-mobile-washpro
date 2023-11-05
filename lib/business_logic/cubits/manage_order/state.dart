@@ -6,7 +6,7 @@ enum LoadingStatus {
   failed,
 }
 
-class PickupScreenState extends Equatable {
+class ManageOrderState extends Equatable {
   final bool? initialLoading;
   final List<XFile>? orderImages;
   final OrderWithBags? order;
@@ -15,7 +15,7 @@ class PickupScreenState extends Equatable {
   final LoadingStatus? savingNotes;
   final String? errorMessage;
 
-  const PickupScreenState({
+  const ManageOrderState({
     this.initialLoading,
     this.addingBag,
     this.pickingUpOrder,
@@ -25,7 +25,7 @@ class PickupScreenState extends Equatable {
     this.orderImages,
   });
 
-  PickupScreenState copyWith({
+  ManageOrderState copyWith({
     bool? initialLoading,
     LoadingStatus? addingBag,
     LoadingStatus? pickingUpOrder,
@@ -34,7 +34,7 @@ class PickupScreenState extends Equatable {
     LoadingStatus? savingNotes,
     List<XFile>? orderImages,
   }) {
-    return PickupScreenState(
+    return ManageOrderState(
       initialLoading: initialLoading ?? this.initialLoading,
       order: order ?? this.order,
       addingBag: addingBag ?? this.addingBag,

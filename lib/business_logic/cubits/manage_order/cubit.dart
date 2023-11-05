@@ -8,12 +8,12 @@ import 'package:washpro/logger.dart';
 
 part 'state.dart';
 
-class PickupScreenCubit extends Cubit<PickupScreenState> {
+class ManageOrderCubit extends Cubit<ManageOrderState> {
   final CustomerRepository _customerRepository;
-  PickupScreenCubit({required CustomerRepository customerRepository})
+  ManageOrderCubit({required CustomerRepository customerRepository})
       : _customerRepository = customerRepository,
         super(
-          const PickupScreenState(
+          const ManageOrderState(
             initialLoading: true,
             orderImages: [],
           ),
@@ -22,7 +22,7 @@ class PickupScreenCubit extends Cubit<PickupScreenState> {
   Future<void> addImage() async {
     try {
       final pickedFile =
-          await ImagePicker().pickImage(source: ImageSource.camera);
+          await ImagePicker().pickImage(source: ImageSource.gallery);
 
       if (pickedFile == null) {
         return;

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:washpro/business_logic/cubits/pickup_screen/cubit.dart';
+import 'package:washpro/business_logic/cubits/manage_order/cubit.dart';
 import 'package:washpro/data/models/api/order_with_bags/model.dart';
 import 'package:washpro/data/repositories/customer/base.dart';
 
@@ -43,12 +43,12 @@ class ManageOrderScreen extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: goBack,
-      child: BlocProvider<PickupScreenCubit>(
-        create: (context) => PickupScreenCubit(
+      child: BlocProvider<ManageOrderCubit>(
+        create: (context) => ManageOrderCubit(
             customerRepository:
                 RepositoryProvider.of<CustomerRepository>(context))
           ..getOrder(props.orderID),
-        child: BlocListener<PickupScreenCubit, PickupScreenState>(
+        child: BlocListener<ManageOrderCubit, ManageOrderState>(
           listener: (context, state) {
             if (state.addingBag == LoadingStatus.success) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -81,9 +81,9 @@ class ManageOrderScreen extends StatelessWidget {
               ));
             }
           },
-          child: BlocBuilder<PickupScreenCubit, PickupScreenState>(
+          child: BlocBuilder<ManageOrderCubit, ManageOrderState>(
             builder: (context, state) {
-              final cubit = BlocProvider.of<PickupScreenCubit>(context);
+              final cubit = BlocProvider.of<ManageOrderCubit>(context);
 
               OrderWithBags? order = state.order;
 
@@ -140,7 +140,7 @@ class ManageOrderScreen extends StatelessWidget {
                             return;
                           }
                           final cubit =
-                              BlocProvider.of<PickupScreenCubit>(context);
+                              BlocProvider.of<ManageOrderCubit>(context);
 
                           final savedOrder = cubit.state.order;
 
@@ -149,7 +149,7 @@ class ManageOrderScreen extends StatelessWidget {
                             builder: (_) {
                               return BlocProvider.value(
                                 value:
-                                    BlocProvider.of<PickupScreenCubit>(context),
+                                    BlocProvider.of<ManageOrderCubit>(context),
                                 child: AddNotesModal(
                                   onSave: (String note) async {
                                     await cubit.saveNotes(props.orderID, note);
@@ -333,6 +333,7 @@ class ManageOrderScreen extends StatelessWidget {
                                 ImagesGrid(
                                   orderImages: state.orderImages,
                                 ),
+                                const SizedBox(height: 20),
                                 SizedBox(
                                   width: double.maxFinite,
                                   height: 48,
