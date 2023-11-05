@@ -60,4 +60,10 @@ abstract class AuthRestClient {
     @Path('id') int id,
     @Query('bag_id') String bagID,
   );
+
+  @GET("orders/{id}/remove-bag/")
+  Future<OrderWithBags> removeBag(
+    @Path('id') int id,
+    @Query('bag_id') String bagID,
+  );
 }

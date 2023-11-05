@@ -12,6 +12,7 @@ class ManageOrderState extends Equatable {
   final OrderWithBags? order;
   final LoadingStatus? addingBag;
   final LoadingStatus? pickingUpOrder;
+  final LoadingStatus? removingBag;
   final LoadingStatus? savingNotes;
   final String? errorMessage;
 
@@ -19,6 +20,7 @@ class ManageOrderState extends Equatable {
     this.initialLoading,
     this.addingBag,
     this.pickingUpOrder,
+    this.removingBag,
     this.order,
     this.errorMessage,
     this.savingNotes,
@@ -28,6 +30,7 @@ class ManageOrderState extends Equatable {
   ManageOrderState copyWith({
     bool? initialLoading,
     LoadingStatus? addingBag,
+    LoadingStatus? removingBag,
     LoadingStatus? pickingUpOrder,
     OrderWithBags? order,
     String? errorMessage,
@@ -39,6 +42,7 @@ class ManageOrderState extends Equatable {
       order: order ?? this.order,
       addingBag: addingBag ?? this.addingBag,
       pickingUpOrder: pickingUpOrder ?? this.pickingUpOrder,
+      removingBag: removingBag ?? this.removingBag,
       errorMessage: errorMessage ?? this.errorMessage,
       savingNotes: savingNotes ?? this.savingNotes,
       orderImages: orderImages ?? this.orderImages,
@@ -58,5 +62,6 @@ class ManageOrderState extends Equatable {
         errorMessage,
         savingNotes,
         orderImages,
+        removingBag,
       ];
 }

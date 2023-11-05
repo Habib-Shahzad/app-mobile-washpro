@@ -41,6 +41,18 @@ class ManageOrderScreen extends StatelessWidget {
       return false;
     }
 
+    displaySnack(LoadingStatus? loading, String success, String failed) {
+      if (loading == LoadingStatus.success) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(success),
+        ));
+      } else if (loading == LoadingStatus.failed) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(failed),
+        ));
+      }
+    }
+
     return WillPopScope(
       onWillPop: goBack,
       child: BlocProvider<ManageOrderCubit>(
@@ -50,36 +62,16 @@ class ManageOrderScreen extends StatelessWidget {
           ..getOrder(props.orderID),
         child: BlocListener<ManageOrderCubit, ManageOrderState>(
           listener: (context, state) {
-            if (state.addingBag == LoadingStatus.success) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('Bag added successfully'),
-              ));
-            } else if (state.addingBag == LoadingStatus.failed) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('Bag addition failed'),
-              ));
-            }
-
-            if (state.savingNotes == LoadingStatus.success) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('Notes saved successfully'),
-              ));
-            } else if (state.savingNotes == LoadingStatus.failed) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('Failed to save notes'),
-              ));
-            }
-
-            if (state.pickingUpOrder == LoadingStatus.success) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('Order status changed successfully'),
-              ));
-              context.go(Routes.home.route);
-            } else if (state.pickingUpOrder == LoadingStatus.failed) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('Failed to change order status'),
-              ));
-            }
+            displaySnack(state.addingBag, 'Bag added successfully',
+                'Bag addition failed');
+            displaySnack(state.removingBag, 'Bag removed successfully',
+                'Bag removal failed');
+            displaySnack(state.savingNotes, 'Notes saved successfully',
+                'Failed to save notes');
+            displaySnack(
+                state.pickingUpOrder,
+                'Order status changed successfully',
+                'Failed to change order status');
           },
           child: BlocBuilder<ManageOrderCubit, ManageOrderState>(
             builder: (context, state) {
@@ -294,7 +286,11 @@ class ManageOrderScreen extends StatelessWidget {
                                     : BagCards(
                                         bags: order.bags,
                                         onDelete: (String bagID) async {
-                                          await cubit.deleteBag(
+                                          if (state.removingBag ==
+                                              LoadingStatus.loading) {
+                                            return;
+                                          }
+                                          await cubit.removeBag(
                                               order.id, bagID);
                                         },
                                       ),
@@ -339,7 +335,8 @@ class ManageOrderScreen extends StatelessWidget {
                                   height: 48,
                                   child: CustomElevatedButton(
                                       buttonText: 'Picked Up',
-                                      isLoading: false,
+                                      isLoading: state.pickingUpOrder ==
+                                          LoadingStatus.loading,
                                       iconData: MdiIcons.accountCheck,
                                       onPressed: () async {
                                         FocusManager.instance.primaryFocus

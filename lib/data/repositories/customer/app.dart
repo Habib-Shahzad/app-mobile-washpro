@@ -54,6 +54,13 @@ class AppCustomerRepository extends CustomerRepository {
   }
 
   @override
+  Future<OrderWithBags> removeBag(int orderID, String bagID) async {
+    final client = getIt<AuthRestClient>();
+    final response = await client.removeBag(orderID, bagID);
+    return response;
+  }
+
+  @override
   Future<OrderWithBags> updateOrder(int orderID, PatchOrder order) async {
     final client = getIt<AuthRestClient>();
     final response = await client.patchOrder(orderID, order);

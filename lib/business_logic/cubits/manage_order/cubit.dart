@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:washpro/data/models/api/bag/model.dart';
 import 'package:washpro/data/models/api/order_with_bags/model.dart';
 import 'package:washpro/data/repositories/customer/base.dart';
 import 'package:washpro/logger.dart';
@@ -22,7 +21,7 @@ class ManageOrderCubit extends Cubit<ManageOrderState> {
   Future<void> addImage() async {
     try {
       final pickedFile =
-          await ImagePicker().pickImage(source: ImageSource.gallery);
+          await ImagePicker().pickImage(source: ImageSource.camera);
 
       if (pickedFile == null) {
         return;
@@ -39,25 +38,19 @@ class ManageOrderCubit extends Cubit<ManageOrderState> {
     }
   }
 
-  Future<void> deleteBag(int orderID, String bagID) async {
+  Future<void> removeBag(int orderID, String bagID) async {
     try {
       logger.i('Deleting Bag from order $orderID $bagID');
 
-      emit(state.copyWith(addingBag: LoadingStatus.loading));
+      emit(state.copyWith(removingBag: LoadingStatus.loading));
 
-      if (state.order != null) {
-        List<Bag> updatedOrderBags = state.order!.bags
-            .where((element) => element.bag_id != bagID)
-            .toList();
-        state.order!.bags = updatedOrderBags;
-      }
+      OrderWithBags order = await _customerRepository.removeBag(orderID, bagID);
 
-      emit(
-          state.copyWith(order: state.order, addingBag: LoadingStatus.success));
+      emit(state.copyWith(order: order, removingBag: LoadingStatus.success));
     } catch (e) {
       logger.e(e);
       logger.e("failed To delete bag");
-      emit(state.copyWith(addingBag: LoadingStatus.failed));
+      emit(state.copyWith(removingBag: LoadingStatus.failed));
     }
   }
 
