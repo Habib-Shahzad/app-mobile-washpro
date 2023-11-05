@@ -11,7 +11,7 @@ import 'package:washpro/presentation/screens/home/screen.dart';
 import 'package:washpro/presentation/screens/login/screen.dart';
 import 'package:washpro/presentation/screens/pick_customer/screen.dart';
 import 'package:washpro/presentation/screens/pick_washpro/screen.dart';
-import 'package:washpro/presentation/screens/pickup/screen.dart';
+import 'package:washpro/presentation/screens/manageOrder/screen.dart';
 import 'package:washpro/presentation/screens/drop_off/screen.dart';
 import 'package:washpro/presentation/screens/print_ticket/print_bag_screen.dart';
 import 'package:washpro/presentation/screens/print_ticket/screen.dart';

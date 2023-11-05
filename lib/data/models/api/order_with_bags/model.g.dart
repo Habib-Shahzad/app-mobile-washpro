@@ -23,6 +23,7 @@ OrderWithBags _$OrderWithBagsFromJson(Map<String, dynamic> json) =>
       expected_bag_count: json['expected_bag_count'] as int?,
       status: json['status'] as String?,
       valet: json['valet'] as int?,
+      note: json['note'] as String?,
     );
 
 Map<String, dynamic> _$OrderWithBagsToJson(OrderWithBags instance) =>
@@ -39,6 +40,7 @@ Map<String, dynamic> _$OrderWithBagsToJson(OrderWithBags instance) =>
       'expected_bag_count': instance.expected_bag_count,
       'status': instance.status,
       'valet': instance.valet,
+      'note': instance.note,
     };
 
 OrderCustomer _$OrderCustomerFromJson(Map<String, dynamic> json) =>

@@ -2,13 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:washpro/data/models/api/order/model.dart';
-import 'package:washpro/presentation/screens/pickup/screen.dart';
+import 'package:washpro/presentation/screens/manageOrder/screen.dart';
 import 'package:washpro/presentation/widgets/pickup_card.dart';
 import 'package:washpro/routes/routes.dart';
 
+class CustomerDetails {
+  final String name;
+  final String address;
+  final String phone;
+  final String email;
+  final int id;
+
+  const CustomerDetails({
+    required this.name,
+    required this.address,
+    required this.phone,
+    required this.email,
+    required this.id,
+  });
+}
+
 class CustomerOrdersScreenProps {
   final List<Order> orders;
-  const CustomerOrdersScreenProps({required this.orders});
+  final CustomerDetails customer;
+  const CustomerOrdersScreenProps(
+      {required this.orders, required this.customer});
 }
 
 class CustomerOrdersScreen extends StatelessWidget {
@@ -16,6 +34,9 @@ class CustomerOrdersScreen extends StatelessWidget {
   const CustomerOrdersScreen({super.key, required this.props});
 
   joinBags(List<int> bags) {
+    if (bags.isEmpty) {
+      return 'No Bags';
+    }
     return bags.map((e) => e.toString()).join(' | ');
   }
 
@@ -32,6 +53,7 @@ class CustomerOrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Order> orders = props.orders;
+    CustomerDetails customer = props.customer;
 
     Future<bool> goBack() async {
       context.pop();
@@ -93,6 +115,8 @@ class CustomerOrdersScreen extends StatelessWidget {
                                         Routes.manageOrder.route,
                                         extra: ManageOrderProps(
                                           orderID: orders[index].id,
+                                          customer: customer,
+                                          orderNote: orders[index].note,
                                         ),
                                       ),
                                     },

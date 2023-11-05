@@ -19,6 +19,7 @@ class OrderWithBags {
   int? expected_bag_count;
   String? status;
   int? valet;
+  String? note;
 
   OrderWithBags({
     required this.id,
@@ -33,6 +34,7 @@ class OrderWithBags {
     this.expected_bag_count,
     this.status,
     this.valet,
+    this.note,
   });
 
   factory OrderWithBags.fromJson(Map<String, dynamic> json) =>
@@ -82,6 +84,7 @@ class PatchOrder {
   int? expected_bag_count;
   String? status;
   int? valet;
+  String? note;
 
   PatchOrder({
     this.order_id,
@@ -90,6 +93,7 @@ class PatchOrder {
     this.expected_bag_count,
     this.status,
     this.valet,
+    this.note,
   });
 
   factory PatchOrder.fromJson(Map<String, dynamic> json) {
@@ -100,6 +104,7 @@ class PatchOrder {
       expected_bag_count: json['expected_bag_count'],
       status: json['status'],
       valet: json['valet'],
+      note: json['note'],
     );
   }
 
@@ -113,6 +118,7 @@ class PatchOrder {
     }
     if (status != null) data['status'] = status;
     if (valet != null) data['valet'] = valet;
+    if (note != null) data['note'] = note;
     return data;
   }
 }

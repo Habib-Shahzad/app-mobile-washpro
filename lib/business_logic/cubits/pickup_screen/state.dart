@@ -8,9 +8,11 @@ enum LoadingStatus {
 
 class PickupScreenState extends Equatable {
   final bool? initialLoading;
+  final List<XFile>? orderImages;
   final OrderWithBags? order;
   final LoadingStatus? addingBag;
   final LoadingStatus? pickingUpOrder;
+  final LoadingStatus? savingNotes;
   final String? errorMessage;
 
   const PickupScreenState({
@@ -19,6 +21,8 @@ class PickupScreenState extends Equatable {
     this.pickingUpOrder,
     this.order,
     this.errorMessage,
+    this.savingNotes,
+    this.orderImages,
   });
 
   PickupScreenState copyWith({
@@ -27,6 +31,8 @@ class PickupScreenState extends Equatable {
     LoadingStatus? pickingUpOrder,
     OrderWithBags? order,
     String? errorMessage,
+    LoadingStatus? savingNotes,
+    List<XFile>? orderImages,
   }) {
     return PickupScreenState(
       initialLoading: initialLoading ?? this.initialLoading,
@@ -34,6 +40,8 @@ class PickupScreenState extends Equatable {
       addingBag: addingBag ?? this.addingBag,
       pickingUpOrder: pickingUpOrder ?? this.pickingUpOrder,
       errorMessage: errorMessage ?? this.errorMessage,
+      savingNotes: savingNotes ?? this.savingNotes,
+      orderImages: orderImages ?? this.orderImages,
     );
   }
 
@@ -42,6 +50,13 @@ class PickupScreenState extends Equatable {
   bool operator ==(Object other) => false;
 
   @override
-  List<Object?> get props =>
-      [initialLoading, addingBag, pickingUpOrder, order, errorMessage];
+  List<Object?> get props => [
+        initialLoading,
+        addingBag,
+        pickingUpOrder,
+        order,
+        errorMessage,
+        savingNotes,
+        orderImages,
+      ];
 }

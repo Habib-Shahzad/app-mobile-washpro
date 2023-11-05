@@ -19,6 +19,7 @@ Order _$OrderFromJson(Map<String, dynamic> json) => Order(
       expected_bag_count: json['expected_bag_count'] as int,
       status: json['status'] as String,
       valet: json['valet'] as int,
+      note: json['note'] as String?,
     );
 
 Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
@@ -34,4 +35,5 @@ Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
       'expected_bag_count': instance.expected_bag_count,
       'status': instance.status,
       'valet': instance.valet,
+      'note': instance.note,
     };

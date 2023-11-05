@@ -44,6 +44,7 @@ class AppAuthRepository extends AuthRepository {
   @override
   Future<void> signIn(String username, String password) async {
     Map<String, String> input = {'username': username, 'password': password};
+
     try {
       final client = getIt<RestClient>();
       AuthToken auth = await client.signIn(input);
@@ -51,6 +52,7 @@ class AppAuthRepository extends AuthRepository {
       SharedPreferencesService.set(PreferenceKeys.refreshToken, auth.refresh);
       _controller.add(AuthenticationStatus.authenticated);
     } catch (e) {
+      logger.e(e.toString());
       throw AuthException("Invalid username or password");
     }
   }

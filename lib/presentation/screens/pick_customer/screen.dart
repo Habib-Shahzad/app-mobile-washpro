@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:washpro/business_logic/cubits/customer_screen/cubit.dart';
 import 'package:washpro/data/models/api/bag/model.dart';
+import 'package:washpro/data/models/api/customer/model.dart';
 import 'package:washpro/data/models/api/customers_response/model.dart';
 import 'package:washpro/data/repositories/customer/base.dart';
 import 'package:washpro/presentation/screens/customer_orders/screen.dart';
@@ -72,6 +73,9 @@ class PickupFromCustomerScreen extends StatelessWidget {
                                       firstLine: customersResponse
                                           .results[index].customer_id);
 
+                                  Customer customer =
+                                      customersResponse.results[index];
+
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 7.0),
                                     child: DefaultCard(
@@ -80,10 +84,14 @@ class PickupFromCustomerScreen extends StatelessWidget {
                                         context.push(
                                           Routes.customerOrders.route,
                                           extra: CustomerOrdersScreenProps(
-                                            orders: customersResponse
-                                                .results[index]
-                                                .scheduled_orders,
-                                          ),
+                                              orders: customer.scheduled_orders,
+                                              customer: CustomerDetails(
+                                                id: customer.id,
+                                                name: customer.name,
+                                                address: customer.address,
+                                                phone: customer.phone_number,
+                                                email: customer.email,
+                                              )),
                                         ),
                                       },
                                     ),

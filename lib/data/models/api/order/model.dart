@@ -18,6 +18,7 @@ class Order {
   final int expected_bag_count;
   final String status;
   final int valet;
+  final String? note;
 
   Order({
     required this.id,
@@ -32,6 +33,7 @@ class Order {
     required this.expected_bag_count,
     required this.status,
     required this.valet,
+    this.note,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);

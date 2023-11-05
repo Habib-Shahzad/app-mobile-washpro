@@ -5,6 +5,7 @@ import 'package:washpro/business_logic/blocs/bag/bloc.dart';
 
 import 'package:washpro/data/models/api/bag/model.dart';
 import 'package:washpro/data/repositories/bag/base.dart';
+import 'package:washpro/presentation/widgets/custom_elevated_button.dart';
 import 'package:washpro/presentation/widgets/pickup_card.dart';
 import 'package:washpro/presentation/widgets/custom_app_bar.dart';
 import 'package:washpro/routes/routes.dart';
@@ -94,10 +95,12 @@ class DeliveryScreen extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: GestureDetector(
-                            onTap: () async {
+                        CustomElevatedButton(
+                            buttonText: 'Scan Bag',
+                            isLoading: false,
+                            iconData: Icons.camera,
+                            onPressed: () async {
+                              FocusManager.instance.primaryFocus?.unfocus();
                               String? value = await context
                                   .push(Routes.barcodeScanner.route);
 
@@ -109,19 +112,7 @@ class DeliveryScreen extends StatelessWidget {
                                   ),
                                 );
                               }
-                            },
-                            child: Text(
-                              'Tap to Scan',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary),
-                            ),
-                          ),
-                        ),
+                            }),
                         const SizedBox(
                           height: 5,
                         ),
