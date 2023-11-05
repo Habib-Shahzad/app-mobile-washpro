@@ -78,7 +78,7 @@ class ManageOrderCubit extends Cubit<ManageOrderState> {
 
   Future<void> addImage() async {
     try {
-      const source = ImageSource.gallery;
+      const source = ImageSource.camera;
       final picked =
           await ImagePicker().pickImage(source: source, imageQuality: 70);
 
