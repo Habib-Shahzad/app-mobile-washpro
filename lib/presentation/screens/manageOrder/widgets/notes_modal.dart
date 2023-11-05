@@ -1,31 +1,35 @@
-import 'package:washpro/business_logic/cubits/pickup_screen/cubit.dart';
-import 'package:washpro/logger.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:washpro/logger.dart';
 import 'package:washpro/presentation/widgets/custom_elevated_button.dart';
 
-class AddNotesModal extends StatelessWidget {
-  final void Function(String) onSave;
+class AddNotesModal extends StatefulWidget {
+  final Future<void> Function(String) onSave;
   final String? savedNotes;
-  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
 
-  AddNotesModal({
+  const AddNotesModal({
     Key? key,
     required this.onSave,
     this.savedNotes,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final state = BlocProvider.of<PickupScreenCubit>(context).state;
+  AddNotesModalState createState() => AddNotesModalState();
+}
 
+class AddNotesModalState extends State<AddNotesModal> {
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: Material(
         color: Colors.transparent,
         child: Container(
-          margin: const EdgeInsets.all(20.0),
+          margin: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(15.0),
@@ -33,23 +37,21 @@ class AddNotesModal extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Add Notes',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+              const Text(
+                'Add Notes',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FormBuilder(
-                  key: _formKey,
+              const SizedBox(height: 20),
+              FormBuilder(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: FormBuilderTextField(
                     name: 'note',
-                    initialValue: savedNotes,
+                    initialValue: widget.savedNotes,
                     maxLines: 5,
                     decoration: InputDecoration(
                       hintText: 'Enter your notes here...',
@@ -62,21 +64,30 @@ class AddNotesModal extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              CustomElevatedButton(
-                isLoading: state.savingNotes == LoadingStatus.loading,
-                onPressed: () {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  if (_formKey.currentState!.saveAndValidate()) {
-                    String? note = _formKey.currentState!.fields['note']!.value;
-                    if (note != null) {
-                      logger.i('Notes Form is valid');
-                      onSave(note);
-                    }
-                  }
-                },
-                buttonText: state.savingNotes == LoadingStatus.loading
-                    ? 'Saving...'
-                    : 'Save',
+              SizedBox(
+                width: double.maxFinite,
+                height: 48,
+                child: CustomElevatedButton(
+                    isLoading: isLoading,
+                    onPressed: () async {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      FormBuilderState? formState = _formKey.currentState!;
+
+                      if (formState.saveAndValidate()) {
+                        String? note = formState.fields['note']!.value;
+                        if (note != null) {
+                          logger.i('Saving Note $note');
+                          setState(() {
+                            isLoading = true;
+                          });
+                          await widget.onSave(note);
+                          setState(() {
+                            isLoading = false;
+                          });
+                        }
+                      }
+                    },
+                    buttonText: 'Save'),
               ),
               const SizedBox(height: 20),
             ],

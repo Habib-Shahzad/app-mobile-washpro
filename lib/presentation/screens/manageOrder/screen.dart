@@ -132,6 +132,13 @@ class ManageOrderScreen extends StatelessWidget {
                       child: IconButton(
                         icon: const Icon(Icons.chat),
                         onPressed: () {
+                          final loading =
+                              state.savingNotes == LoadingStatus.loading ||
+                                  state.savingNotes == LoadingStatus.loading ||
+                                  state.initialLoading == true;
+                          if (loading) {
+                            return;
+                          }
                           final cubit =
                               BlocProvider.of<PickupScreenCubit>(context);
 
