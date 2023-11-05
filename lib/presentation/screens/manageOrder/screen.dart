@@ -41,12 +41,15 @@ class ManageOrderScreen extends StatelessWidget {
       return false;
     }
 
-    displaySnack(LoadingStatus? loading, String success, String failed) {
+    displaySnack(LoadingStatus? loading, String success, String failed,
+        VoidCallback onClose) {
       if (loading == LoadingStatus.success) {
+        onClose();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(success),
         ));
       } else if (loading == LoadingStatus.failed) {
+        onClose();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(failed),
         ));
@@ -62,16 +65,23 @@ class ManageOrderScreen extends StatelessWidget {
           ..getOrder(props.orderID),
         child: BlocListener<ManageOrderCubit, ManageOrderState>(
           listener: (context, state) {
+            final cubit = BlocProvider.of<ManageOrderCubit>(context);
+
             displaySnack(state.addingBag, 'Bag added successfully',
-                'Bag addition failed');
+                'Bag addition failed', cubit.resetAddingBag);
+
             displaySnack(state.removingBag, 'Bag removed successfully',
-                'Bag removal failed');
+                'Bag removal failed', cubit.resetRemovingBag);
+
             displaySnack(state.savingNotes, 'Notes saved successfully',
-                'Failed to save notes');
+                'Failed to save notes', cubit.resetSavingNotes);
             displaySnack(
                 state.pickingUpOrder,
                 'Order status changed successfully',
-                'Failed to change order status');
+                'Failed to change order status',
+                cubit.resetPickingUpOrder);
+            displaySnack(state.deletingImage, 'Image deleted successfully',
+                'Failed to delete image', cubit.resetDeletingImage);
           },
           child: BlocBuilder<ManageOrderCubit, ManageOrderState>(
             builder: (context, state) {
@@ -326,9 +336,15 @@ class ManageOrderScreen extends StatelessWidget {
                                       }),
                                 ),
                                 const SizedBox(height: 20),
-                                ImagesGrid(
-                                  orderImages: state.orderImages,
-                                ),
+                                state.loadingImages == LoadingStatus.loading
+                                    ? const Center(
+                                        child: CircularProgressIndicator())
+                                    : ImagesGrid(
+                                        orderImages: state.orderImages,
+                                        onDelete: (String imageID) async {
+                                          cubit.deleteImage(imageID);
+                                        },
+                                      ),
                                 const SizedBox(height: 20),
                                 SizedBox(
                                   width: double.maxFinite,

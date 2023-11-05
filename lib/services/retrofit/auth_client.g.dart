@@ -49,6 +49,61 @@ class _AuthRestClient implements AuthRestClient {
   }
 
   @override
+  Future<HttpResponse<dynamic>> deleteImage(int id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'image/${id}/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<PaginatedImages> getOrderImages(int orderID) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'order_id': orderID};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<PaginatedImages>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'image/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = PaginatedImages.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<CustomersResponse> getCustomers() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -347,6 +402,35 @@ class _AuthRestClient implements AuthRestClient {
               baseUrl,
             ))));
     final value = OrderWithBags.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<OrderImage> uploadImage(FormData body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'multipart/form-data'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = body;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<OrderImage>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+            .compose(
+              _dio.options,
+              'image/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = OrderImage.fromJson(_result.data!);
     return value;
   }
 

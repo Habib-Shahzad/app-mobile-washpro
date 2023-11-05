@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:retrofit/retrofit.dart' as retro;
 import 'package:washpro/data/models/api/bag/model.dart';
 import 'package:washpro/data/models/api/customer/model.dart';
 import 'package:washpro/data/models/api/customers_response/model.dart';
+import 'package:washpro/data/models/api/order_image/model.dart';
 import 'package:washpro/data/models/api/order_with_bags/model.dart';
 import 'package:washpro/data/models/api/orders_response/model.dart';
 
@@ -17,6 +19,14 @@ abstract class AuthRestClient {
   Future<OrdersResponse> getOrders(
     @Query('status') String status,
   );
+
+  @DELETE("image/{id}/")
+  Future<HttpResponse<dynamic>> deleteImage(
+    @Path('id') int id,
+  );
+
+  @GET("image/")
+  Future<PaginatedImages> getOrderImages(@Query('order_id') int orderID);
 
   @GET("customer/")
   Future<CustomersResponse> getCustomers();
@@ -65,5 +75,13 @@ abstract class AuthRestClient {
   Future<OrderWithBags> removeBag(
     @Path('id') int id,
     @Query('bag_id') String bagID,
+  );
+
+  @retro.Headers(<String, dynamic>{
+    'Content-Type': 'multipart/form-data',
+  })
+  @POST("image/")
+  Future<OrderImage> uploadImage(
+    @Body() FormData body,
   );
 }
