@@ -29,7 +29,7 @@ class AppCustomerRepository extends CustomerRepository {
   }
 
   @override
-  Future<PaginatedImages> getOrderImages(int orderID) async {
+  Future<PaginatedImages> getOrderImages(String orderID) async {
     final client = getIt<AuthRestClient>();
     final response = await client.getOrderImages(orderID);
     return response;

@@ -79,7 +79,7 @@ class _AuthRestClient implements AuthRestClient {
   }
 
   @override
-  Future<PaginatedImages> getOrderImages(int orderID) async {
+  Future<PaginatedImages> getOrderImages(String orderID) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'order_id': orderID};
     final _headers = <String, dynamic>{};

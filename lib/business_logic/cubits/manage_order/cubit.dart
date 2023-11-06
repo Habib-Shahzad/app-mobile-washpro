@@ -192,12 +192,17 @@ class ManageOrderCubit extends Cubit<ManageOrderState> {
     }
   }
 
-  Future<void> loadImages(int id) async {
+  Future<void> loadImages(String? orderID) async {
     try {
       logger.i('Fetching Order Images');
       emit(state.copyWith(loadingImages: LoadingStatus.loading));
 
-      PaginatedImages images = await _customerRepository.getOrderImages(id);
+      if (orderID == null) {
+        logger.e("Order ID is null");
+        throw Exception("Order ID is null");
+      }
+      PaginatedImages images =
+          await _customerRepository.getOrderImages(orderID);
 
       logger.i('Fetched Order Images');
 
@@ -237,7 +242,7 @@ class ManageOrderCubit extends Cubit<ManageOrderState> {
 
       logger.i('Fetched Order');
 
-      await loadImages(id);
+      await loadImages(response.order_id);
     } catch (e) {
       logger.e(e);
       emit(state.copyWith(initialLoading: false, errorMessage: e.toString()));

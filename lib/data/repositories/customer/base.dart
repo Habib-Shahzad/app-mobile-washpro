@@ -8,7 +8,7 @@ import 'package:washpro/data/models/api/orders_response/model.dart';
 
 abstract class CustomerRepository {
   Future<Customer> getCustomer(int id);
-  Future<PaginatedImages> getOrderImages(int orderID);
+  Future<PaginatedImages> getOrderImages(String orderID);
   Future<CustomersResponse> getCustomers();
   Future<OrderWithBags> getOrder(int id);
   Future<OrdersResponse> getOrders();
