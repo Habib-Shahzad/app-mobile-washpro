@@ -26,7 +26,8 @@ abstract class AuthRestClient {
   );
 
   @GET("image/")
-  Future<PaginatedImages> getOrderImages(@Query('order_id') String orderID);
+  Future<PaginatedImages> getOrderImages(
+      @Query('order__order_id') String orderID);
 
   @GET("customer/")
   Future<CustomersResponse> getCustomers();
