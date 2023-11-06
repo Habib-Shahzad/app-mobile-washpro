@@ -42,12 +42,16 @@ class ManageOrderScreen extends StatelessWidget {
     }
 
     displaySnack(LoadingStatus? loading, String success, String failed,
-        VoidCallback onClose) {
+        VoidCallback onClose,
+        {VoidCallback? onSuccess}) {
       if (loading == LoadingStatus.success) {
         onClose();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(success),
         ));
+        if (onSuccess != null) {
+          onSuccess();
+        }
       } else if (loading == LoadingStatus.failed) {
         onClose();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -79,7 +83,9 @@ class ManageOrderScreen extends StatelessWidget {
                 state.pickingUpOrder,
                 'Order status changed successfully',
                 'Failed to change order status',
-                cubit.resetPickingUpOrder);
+                cubit.resetPickingUpOrder, onSuccess: () {
+              context.go(Routes.pickFromCustomer.route);
+            });
             displaySnack(state.deletingImage, 'Image deleted successfully',
                 'Failed to delete image', cubit.resetDeletingImage);
           },

@@ -55,6 +55,14 @@ class PickupFromCustomerScreen extends StatelessWidget {
               if (state is Loaded) {
                 CustomersResponse customersResponse = state.customersResponse;
 
+                if (customersResponse.results.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'Good Job! No Customers Left',
+                    ),
+                  );
+                }
+
                 return Center(
                   child: Column(
                     children: [
