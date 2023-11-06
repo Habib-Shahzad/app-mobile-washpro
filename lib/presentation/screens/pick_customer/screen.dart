@@ -43,7 +43,7 @@ class PickupFromCustomerScreen extends StatelessWidget {
           create: (context) => CustomerScreenCubit(
               customerRepository:
                   RepositoryProvider.of<CustomerRepository>(context))
-            ..getOrders(),
+            ..getCustomers(),
           child: BlocBuilder<CustomerScreenCubit, CustomerScreenState>(
             builder: (context, state) {
               if (state is Loading || state is Initial) {

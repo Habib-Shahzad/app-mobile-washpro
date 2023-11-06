@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: prefer_const_declarations
-
 part of 'auth_client.dart';
 
 // **************************************************************************
@@ -106,9 +104,9 @@ class _AuthRestClient implements AuthRestClient {
   }
 
   @override
-  Future<CustomersResponse> getCustomers() async {
+  Future<CustomersResponse> getCustomers(String status) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'orders__status': status};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio

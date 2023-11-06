@@ -30,7 +30,9 @@ abstract class AuthRestClient {
       @Query('order__order_id') String orderID);
 
   @GET("customer/")
-  Future<CustomersResponse> getCustomers();
+  Future<CustomersResponse> getCustomers(
+    @Query('orders__status') String status,
+  );
 
   @GET("customer/{id}")
   Future<Customer> getCustomer(

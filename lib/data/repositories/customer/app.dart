@@ -15,9 +15,9 @@ class AppCustomerRepository extends CustomerRepository {
   void dispose() {}
 
   @override
-  Future<CustomersResponse> getCustomers() async {
+  Future<CustomersResponse> getScheduledCustomers() async {
     final client = getIt<AuthRestClient>();
-    final response = await client.getCustomers();
+    final response = await client.getCustomers("scheduled");
     return response;
   }
 

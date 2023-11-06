@@ -11,11 +11,12 @@ class CustomerScreenCubit extends Cubit<CustomerScreenState> {
       : _customerRepository = customerRepository,
         super(Initial());
 
-  Future<void> getOrders() async {
+  Future<void> getCustomers() async {
     emit(Loading());
     try {
       logger.i('Fetching all Customers getCustomers(); ');
-      CustomersResponse response = await _customerRepository.getCustomers();
+      CustomersResponse response =
+          await _customerRepository.getScheduledCustomers();
       emit(Loaded(customersResponse: response));
       logger.i('Fetched Customers');
     } catch (e) {
