@@ -5,6 +5,7 @@ import 'package:washpro/business_logic/cubits/customer_screen/cubit.dart';
 import 'package:washpro/data/models/api/bag/model.dart';
 import 'package:washpro/data/models/api/customer/model.dart';
 import 'package:washpro/data/models/api/customers_response/model.dart';
+import 'package:washpro/data/models/api/order/model.dart';
 import 'package:washpro/data/repositories/customer/base.dart';
 import 'package:washpro/presentation/screens/customer_orders/screen.dart';
 import 'package:washpro/presentation/widgets/custom_app_bar.dart';
@@ -84,6 +85,11 @@ class PickupFromCustomerScreen extends StatelessWidget {
                                   Customer customer =
                                       customersResponse.results[index];
 
+                                  List<Order> orders = customer.orders
+                                      .where((order) =>
+                                          order.status == 'scheduled')
+                                      .toList();
+
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 7.0),
                                     child: DefaultCard(
@@ -92,7 +98,7 @@ class PickupFromCustomerScreen extends StatelessWidget {
                                         context.push(
                                           Routes.customerOrders.route,
                                           extra: CustomerOrdersScreenProps(
-                                              orders: customer.scheduled_orders,
+                                              orders: orders,
                                               customer: CustomerDetails(
                                                 id: customer.id,
                                                 name: customer.name,

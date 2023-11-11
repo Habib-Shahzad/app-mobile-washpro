@@ -16,7 +16,21 @@ class CustomerScreenCubit extends Cubit<CustomerScreenState> {
     try {
       logger.i('Fetching all Customers getCustomers(); ');
       CustomersResponse response =
-          await _customerRepository.getScheduledCustomers();
+          await _customerRepository.getCustomersByStatus("scheduled");
+      emit(Loaded(customersResponse: response));
+      logger.i('Fetched Customers');
+    } catch (e) {
+      logger.e(e);
+      emit(Error(errorMessage: e.toString()));
+    }
+  }
+
+  Future<void> getDispatchedCustomers() async {
+    emit(Loading());
+    try {
+      logger.i('Fetching all Customers getCustomers(); ');
+      CustomersResponse response =
+          await _customerRepository.getCustomersByStatus("dispatched");
       emit(Loaded(customersResponse: response));
       logger.i('Fetched Customers');
     } catch (e) {

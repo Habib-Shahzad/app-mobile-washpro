@@ -17,6 +17,7 @@ class Customer {
   final String customer_id;
   final String preferences;
 
+  List<Order> orders;
   List<Order> scheduled_orders;
 
   Customer({
@@ -31,6 +32,7 @@ class Customer {
     required this.customer_id,
     required this.preferences,
     required this.scheduled_orders,
+    required this.orders,
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) =>

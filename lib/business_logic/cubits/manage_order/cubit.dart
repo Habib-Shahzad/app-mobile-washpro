@@ -78,7 +78,7 @@ class ManageOrderCubit extends Cubit<ManageOrderState> {
 
   Future<void> addImage() async {
     try {
-      const source = ImageSource.camera;
+      const source = ImageSource.gallery;
       final picked =
           await ImagePicker().pickImage(source: source, imageQuality: 70);
 
@@ -234,6 +234,9 @@ class ManageOrderCubit extends Cubit<ManageOrderState> {
     try {
       logger.i('Fetching Order');
       OrderWithBags response = await _customerRepository.getOrder(id);
+
+      print("i am here");
+      print(response.bags);
 
       emit(state.copyWith(
         initialLoading: false,

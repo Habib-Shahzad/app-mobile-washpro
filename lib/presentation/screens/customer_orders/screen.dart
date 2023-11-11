@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:washpro/data/models/api/order/model.dart';
 import 'package:washpro/presentation/screens/manageOrder/screen.dart';
+import 'package:washpro/presentation/screens/manageOrderDelivery/screen.dart';
 import 'package:washpro/presentation/widgets/pickup_card.dart';
 import 'package:washpro/routes/routes.dart';
 
@@ -25,13 +26,18 @@ class CustomerDetails {
 class CustomerOrdersScreenProps {
   final List<Order> orders;
   final CustomerDetails customer;
+  final bool? isDelivery;
   const CustomerOrdersScreenProps(
-      {required this.orders, required this.customer});
+      {required this.orders, required this.customer, this.isDelivery = false});
 }
 
 class CustomerOrdersScreen extends StatelessWidget {
   final CustomerOrdersScreenProps props;
   const CustomerOrdersScreen({super.key, required this.props});
+
+  bool isDelivery() {
+    return props.isDelivery!;
+  }
 
   joinBags(List<int> bags) {
     if (bags.isEmpty) {
@@ -77,7 +83,7 @@ class CustomerOrdersScreen extends StatelessWidget {
           title: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Pickup Orders",
+              isDelivery() ? "Deliver Order" : "Pickup Orders",
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge!
@@ -111,14 +117,28 @@ class CustomerOrdersScreen extends StatelessWidget {
                                   child: DefaultCard(
                                     props: props,
                                     onTap: () => {
-                                      context.go(
-                                        Routes.manageOrder.route,
-                                        extra: ManageOrderProps(
-                                          orderID: orders[index].id,
-                                          customer: customer,
-                                          orderNote: orders[index].note,
-                                        ),
-                                      ),
+                                      if (isDelivery())
+                                        {
+                                          context.go(
+                                            Routes.manageOrderDelivery.route,
+                                            extra: ManageOrderDeliveryProps(
+                                              orderID: orders[index].id,
+                                              customer: customer,
+                                              orderNote: orders[index].note,
+                                            ),
+                                          ),
+                                        }
+                                      else
+                                        {
+                                          context.go(
+                                            Routes.manageOrder.route,
+                                            extra: ManageOrderProps(
+                                              orderID: orders[index].id,
+                                              customer: customer,
+                                              orderNote: orders[index].note,
+                                            ),
+                                          ),
+                                        }
                                     },
                                   ),
                                 );

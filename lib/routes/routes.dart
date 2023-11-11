@@ -9,6 +9,7 @@ import 'package:washpro/presentation/screens/delivery/screen.dart';
 import 'package:washpro/presentation/screens/forgot_password/screen.dart';
 import 'package:washpro/presentation/screens/home/screen.dart';
 import 'package:washpro/presentation/screens/login/screen.dart';
+import 'package:washpro/presentation/screens/manageOrderDelivery/screen.dart';
 import 'package:washpro/presentation/screens/pick_customer/screen.dart';
 import 'package:washpro/presentation/screens/pick_washpro/screen.dart';
 import 'package:washpro/presentation/screens/manageOrder/screen.dart';
@@ -30,6 +31,7 @@ enum Routes {
   home,
   pickFromCustomer,
   manageOrder,
+  manageOrderDelivery,
   updateBag,
   dropOff,
   printTicket,
@@ -108,10 +110,22 @@ final appRouter = GoRouter(
       builder: (context, state) {
         if (state.extra == null) {
           return Center(
-              child: Text('No customer selected',
+              child: Text('No order selected',
                   style: Theme.of(context).textTheme.bodyLarge));
         }
         return ManageOrderScreen(props: state.extra as ManageOrderProps);
+      },
+    ),
+    GoRoute(
+      path: Routes.manageOrderDelivery.route,
+      builder: (context, state) {
+        if (state.extra == null) {
+          return Center(
+              child: Text('No order selected',
+                  style: Theme.of(context).textTheme.bodyLarge));
+        }
+        return ManageOrderDeliveryScreen(
+            props: state.extra as ManageOrderDeliveryProps);
       },
     ),
     GoRoute(
