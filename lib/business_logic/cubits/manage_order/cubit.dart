@@ -235,9 +235,6 @@ class ManageOrderCubit extends Cubit<ManageOrderState> {
       logger.i('Fetching Order');
       OrderWithBags response = await _customerRepository.getOrder(id);
 
-      print("i am here");
-      print(response.bags);
-
       emit(state.copyWith(
         initialLoading: false,
         order: response,
