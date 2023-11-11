@@ -37,7 +37,7 @@ class ManageOrderDeliveryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future<bool> goBack() async {
-      context.go(Routes.pickFromCustomer.route);
+      context.go(Routes.delivery.route);
       return false;
     }
 
